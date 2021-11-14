@@ -1,9 +1,6 @@
-import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.*;
+import javax.swing.*;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class plateau extends JFrame{
  
@@ -42,6 +39,8 @@ public class plateau extends JFrame{
            
            pan.add(ptest);
         }
+        Image icon = Toolkit.getDefaultToolkit().getImage("chess.png");  
+        setIconImage(icon); // Change l'icone de l'application
         add(pan);
         setVisible(true);
 	}
