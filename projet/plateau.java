@@ -39,7 +39,7 @@ public class plateau extends JFrame{
            
            pan.add(ptest);
         }
-        Image icon = Toolkit.getDefaultToolkit().getImage("chess.png");  
+        Image icon = Toolkit.getDefaultToolkit().getImage("../img/chess.png");  
         setIconImage(icon); // Change l'icone de l'application
         add(pan);
         setVisible(true);
