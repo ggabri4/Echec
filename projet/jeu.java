@@ -1,4 +1,5 @@
 //import pions.*;
+import echecVue.*;
 
 public class jeu {
 
