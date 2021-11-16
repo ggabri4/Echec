@@ -10,4 +10,7 @@ public abstract class piece {
 
     public abstract void deplacement();
     public abstract void deplacementpossible();
+    public int getCouleur(){
+        return team;
+    }
 }

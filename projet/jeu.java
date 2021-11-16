@@ -1,4 +1,6 @@
 //import pions.*;
+//import javax.swing.JFrame;
+
 import echecVue.*;
 
 public class jeu {
@@ -7,7 +9,7 @@ public class jeu {
 		
 		plateau grille = new plateau(500,500);
 		System.out.println("Lancement de l'application");
-		grille.affiche();
+		grille.afficheCase();
 	}
 
 }
