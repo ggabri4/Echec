@@ -22,12 +22,22 @@ public class plateau extends JFrame implements Observer{
 
 	public void afficheinterface(){
         this.setTitle("Chess game");
-        this.setMinimumSize(new Dimension(500,500));
-        Image icon = Toolkit.getDefaultToolkit().getImage("../../img/chess.png");
-        this.setIconImage(icon); // Change l'icone de l'application
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setMinimumSize(new Dimension(500,500)); 
+        // Taille minimum
+        this.setLocationRelativeTo(null); 
+        // Position de la fenetre à l'ouverture.
+        Image icon = Toolkit.getDefaultToolkit().getImage("../../img/chess.png"); 
+        // On va cercher l'icone
+        this.setIconImage(icon); 
+        // Change l'icone de l'application
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        // Stop le prog lorsqu'on ferme la fenetre
         this.echecP = new echecPanel(x, y, this) ;
         this.setContentPane(echecP);
+        this.afficheCase();
+        //Maitenant on affiche les cases
+        this.setVisible(true);
+        //On peut rendre la frame visible
     }
 
 	public void afficheCase() {//Affichage des cases 
