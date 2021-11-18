@@ -9,6 +9,7 @@ public class jeu {
 		
 		plateau grille = new plateau(700,700);
 		System.out.println("Lancement de l'application");
+
 	}
 
 }

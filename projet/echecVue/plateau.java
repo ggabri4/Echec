@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class plateau extends JFrame implements Observer{
  
-    private int x,y;
+    private int x,y,r;
     private echecPanel echecP;
 	private static final long serialVersionUID = 1L;
 
@@ -17,35 +17,36 @@ public class plateau extends JFrame implements Observer{
         // initialization code...
         this.x=x;
         this.y=y;
+        r=0;
         afficheinterface();
     }
 
 	public void afficheinterface(){
         this.setTitle("Chess game");
-        this.setMinimumSize(new Dimension(500,500)); 
-        // Taille minimum
+        this.setMinimumSize(new Dimension(500,500));
+        // Taille minimum 
+        this.setPreferredSize(new Dimension(800,800));
         this.setLocationRelativeTo(null); 
         // Position de la fenetre à l'ouverture.
-        Image icon = Toolkit.getDefaultToolkit().getImage("../../img/chess.png"); 
+        Image icon = Toolkit.getDefaultToolkit().getImage("./img/chess.png"); 
         // On va cercher l'icone
         this.setIconImage(icon); 
         // Change l'icone de l'application
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         // Stop le prog lorsqu'on ferme la fenetre
-        this.echecP = new echecPanel(x, y, this) ;
+        this.echecP = new echecPanel(this);
+        //afficheCase();
         this.setContentPane(echecP);
-        this.afficheCase();
-        //Maitenant on affiche les cases
-        this.setVisible(true);
+        setVisible(true);
         //On peut rendre la frame visible
     }
 
 	public void afficheCase() {//Affichage des cases 
-		int chiffre = 7;
+		int chiffre = 8;
 		int lettre = 65;
 		this.setSize(x, y);
-        JPanel pan = new JPanel (new GridLayout(8,9));
-        for(int i = 0; i<72;i++){
+        echecP.setLayout(new GridLayout(9,9));
+        for(int i = 0; i<81;i++){
            JPanel ptest = new JPanel();
            if(i%9==0) {
         	   if(chiffre != 0) {
@@ -54,26 +55,30 @@ public class plateau extends JFrame implements Observer{
             	   chiffre--;
         	   }
            }
-           if(i>63) {
+           if(i>72) {
         	   char l = (char) lettre;
         	   JLabel label = new JLabel(""+l); 
         	   ptest.add(label);
         	   lettre++;
            }
         	  
-           else if(i%2==1 && i%9!=0) ptest.setBackground(Color.gray);
-           
-           pan.add(ptest);
+           else if(i%2==0 && i%9!=0) ptest.setBackground(Color.gray);
+           echecP.add(ptest);
         }
-        
-        add(pan);
-        setVisible(true);
+        r=1;
 	}
-
+    
     public void affichePiece(Graphics g){
-        
-        g.drawImage(ImagePiece.pion , 250 , 250, null);
-        
+        if(this.r == 0){
+            //afficheCase();
+            System.out.println("yess");
+        }
+        System.out.println("yess"); 
+        for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+                g.drawImage(ImagePiece.pion , 25 , 25, this);
+            }
+        }  
     }
 
     @Override
