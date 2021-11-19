@@ -74,7 +74,11 @@ public class plateau extends JFrame implements Observer{
         System.out.println(dim.height + "   "+ dim.width); 
         for (int i = 0; i < 7; i++) {
             for (int j = 1; j < 9; j++) {
-                g.drawImage(ImagePiece.pion , ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2), this);
+                g.drawImage(ImagePiece.pion , ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2), this); 
+                // (dim.width/9)*j) = avoir le x du début de la case
+                // (((dim.width/9)-70)/2) = ((taille de la case)- taille de l'image de la piece)/2 = centre l'image dans la case
+                // Puis idem pour Y ...
+                //Centrage de l'image dans la case.
             }
         }   
     }
