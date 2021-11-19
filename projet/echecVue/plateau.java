@@ -74,7 +74,7 @@ public class plateau extends JFrame implements Observer{
         System.out.println(dim.height + "   "+ dim.width); 
         for (int i = 0; i < 7; i++) {
             for (int j = 1; j < 9; j++) {
-                g.drawImage(ImagePiece.pion , ((dim.width/9)*j), (dim.height/8)*i, this);
+                g.drawImage(ImagePiece.pion , ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2), this);
             }
         }   
     }
