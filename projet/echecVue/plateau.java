@@ -2,8 +2,11 @@ package echecVue;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
+import echecVue.grille.Piece;
 
 import javax.swing.*;
+
+import echecController.echequierController;
 
 
 public class plateau extends JFrame implements Observer{
@@ -11,12 +14,15 @@ public class plateau extends JFrame implements Observer{
     private int x,y,r;
     private echecPanel echecP;
 	private static final long serialVersionUID = 1L;
+    //on creé le controller pour récuperer la grille.
+    private echequierController controler;
 
-	public plateau(int x, int y) {
+	public plateau(int x, int y, echequierController controler) {
         super("plateau");
         // initialization code...
         this.x=x;
         this.y=y;
+        this.controler=controler;// on récupére le controller passé en paramètre dans jeu.java pour la grille
         afficheinterface();
     }
 
@@ -74,11 +80,49 @@ public class plateau extends JFrame implements Observer{
         System.out.println(dim.height + "   "+ dim.width); 
         for (int i = 0; i < 7; i++) {
             for (int j = 1; j < 9; j++) {
-                g.drawImage(ImagePiece.pion , ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2), this); 
+                //g.drawImage(ImagePiece.pion , ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2), this); 
                 // (dim.width/9)*j) = avoir le x du début de la case
                 // (((dim.width/9)-70)/2) = ((taille de la case)- taille de l'image de la piece)/2 = centre l'image dans la case
                 // Puis idem pour Y ...
                 //Centrage de l'image dans la case.
+
+                try{ //on vérifie si la case de la grille est pas vide.
+					if(controler.getModel().grille[i][j] !=null ) {
+                        //si elle est pas vide on recupére la piece présente
+						Piece pieceCase=controler.getModel().grille[i][j].getPiece();
+						String nomPiece=pieceCase.toString();
+						switch (nomPiece){// en fonction de la pièce on met l'image correspondante.
+
+						case "T":
+                            //la on récupére la couleur de la piéce si elle est blanche on met l'image blanche et sinon noir. TB TN etc.. sont dans imagePiece.
+							g.drawImage(((pieceCase.getCouleur()==Color.white) ? ImagePiece.TB : ImagePiece.TN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+							break;
+
+						case "C":
+							g.drawImage(((pieceCase.getCouleur()==Color.white) ? ImagePiece.CB : ImagePiece.CN), ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+							break;
+
+						case "F":
+							g.drawImage(((pieceCase.getCouleur()==Color.white) ? ImagePiece.FB : ImagePiece.FN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+							break;
+
+						case "D":
+							g.drawImage(((pieceCase.getCouleur()==Color.white) ? ImagePiece.DB : ImagePiece.DN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+							break;
+
+						case "R":
+							g.drawImage(((pieceCase.getCouleur()==Color.white) ? ImagePiece.RB : ImagePiece.RN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+							break;
+
+						case "":
+							g.drawImage(((pieceCase.getCouleur()==Color.white) ? ImagePiece.PB : ImagePiece.PN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+							break;
+						default:
+
+						}
+					}
+				}catch(Exception e){
+				}
             }
         }   
     }

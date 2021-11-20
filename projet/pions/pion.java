@@ -1,15 +1,17 @@
 package pions;
 
-public class pion extends piece{
-    
-    public pion(int team){
-        super(team);
-    }
-    public void deplacement(){
+import echecVue.grille.*;
+import java.awt.Color;
 
-    }
-    public void deplacementpossible(){
+public class pion extends Piece {
 
-    }
+    public pion(Color couleurPiece) {
+		super(couleurPiece);
+	}
 
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "";
+    }
 }
