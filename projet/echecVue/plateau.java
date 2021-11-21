@@ -86,7 +86,7 @@ public class plateau extends JFrame implements Observer{
     public void affichePiece(Graphics g){
         Dimension dim = echecP.getSize();
         this.echecListener.setsize((int)dim.getWidth(), (int)dim.getHeight());
-        System.out.println(dim.width + "   "+ dim.height); 
+        //System.out.println(dim.width + "   "+ dim.height); 
         for (int i = 0; i < 7; i++) {
             for (int j = 1; j < 9; j++) {
                 //g.drawImage(ImagePiece.pion , ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2), this); 
@@ -126,6 +126,8 @@ public class plateau extends JFrame implements Observer{
 						case "P":
 							g.drawImage(((nomPiece=="PB") ? ImagePiece.PB : ImagePiece.PN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
 							break;
+                        case "I":
+                            g.drawImage(ImagePiece.Indicateur, ((dim.width/9)*j)+(((dim.width/9)-30)/2) , ((dim.height/8)*i)+(((dim.height/8)-30)/2) , this);
 						default:
 
 						}
@@ -139,6 +141,7 @@ public class plateau extends JFrame implements Observer{
         Dimension dime = echecP.getSize();
         return dime;
     }
+    
     @Override
     public void update(Observable o, Object arg) {
         repaint();

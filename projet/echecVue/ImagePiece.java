@@ -21,4 +21,6 @@ public final class ImagePiece {
 	
 	public static Image PB=new ImageIcon ("./img/blanc/pion.png").getImage();
 	public static Image PN=new ImageIcon ("./img/noir/pion.png").getImage();
+
+	public static Image Indicateur = new ImageIcon ("./img/Indicateur.png").getImage();
 }

@@ -86,20 +86,39 @@ public class Grille implements Observable{
 		addObserver();
     }
 	
-	public void MovePiece(int x1, int y1, int x2, int y2){
+	public int MovePiece(int x1, int y1, int x2, int y2){
 		try{
 			//System.out.println(x1+" "+y1+" et "+x2+" "+y2);
 			//System.out.println(""+grille[x1][y1]);
-			if(grille[x1][y1]!=null && grille[x2][y2]==null)
+			if(grille[x1][y1]!=null && grille[x2][y2]=="I")
 			{
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
+				for (int i = 0; i < 7; i++)
+					for (int j = 1; j < 9; j++)
+						if(grille[i][j]=="I")
+							grille[i][j]=null;
 				moves.add("coup");
 				notifyObserver(moves);
+				return 1;
 			}
 		}catch(Exception e){
 			throw(e);
 		}
+		return 0;
+	}
+	public void PossibleMoves(int x, int y){
+		try{
+			ind indicateur = new ind();
+			String piece = grille[x][y];
+			System.out.println("" + (x-2) + " "+ y);
+			if(grille[x-1][y]==null){
+				grille[x-1][y] = indicateur.toString();
+				if(grille[x-2][y]==null)
+					grille[x-2][y] = indicateur.toString();
+				notifyObserver(null);
+			}
+		}catch(Exception e){}
 	}
 
 
@@ -117,8 +136,7 @@ public class Grille implements Observable{
 		Iterator it = listObs.iterator();
 		
 		while (it.hasNext()) {
-			System.out.println("ici");
-			((plateau) it.next()).repaint();
+			((plateau) it.next()).update(null, null);
 		}
 	}
 

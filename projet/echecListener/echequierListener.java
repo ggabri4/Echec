@@ -25,21 +25,21 @@ public class echequierListener extends MouseAdapter{
         MouseX= Integer.parseInt(pos.substring(0,1));
         MouseY= Integer.parseInt(pos.substring(2,3));
         if(FirstClick){
-            //System.out.println("1");
             x1 = MouseX;
             y1 = MouseY;
             FirstClick=false;
+            controller.PossibleMoves(x1, y1);
         }
         else{
             x2 = MouseX;
             y2 = MouseY;
             //System.out.println("2");
-            FirstClick=true;
-            controller.MovePiece(x1,y1,x2,y2);
+            if(controller.MovePiece(x1,y1,x2,y2)==1)
+                FirstClick=true;
             //System.out.println("grille["+ x1+"]["+ y1+"]");//position click 1
             //System.out.println("grille["+ x2+"]["+ y2+"]");//position click 2
         }
-        //System.out.println(x1 + " " + y1 + " et " + x2 + " " + y2);
+        //System.out.println(x1 + " " + y1 + " et " + x2 + " " + y2 + " " + FirstClick);
     }
     public void setsize(int x, int y){
         this.x = x;
