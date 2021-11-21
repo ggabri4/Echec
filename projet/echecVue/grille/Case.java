@@ -2,20 +2,20 @@ package echecVue.grille;
 
 
 
-public class Case implements /*Comparable<Case>*/ Cloneable {
+public class Case{ 
 
 	private Piece piece;
-	private int rangee,colonne;
+	private int ligne,colonne;
     //ici pour chaque case on a la piece la rangée et la colonne
-	public Case(Piece piece, int rangee, int colonne) {
+	public Case(Piece piece, int ligne, int colonne) {
 
 		this.piece = piece;
-		this.rangee=rangee;
+		this.ligne=ligne;
 		this.colonne=colonne;
 	}
 
     public String toString(){
-		return ""+rangee+colonne;
+		return ""+ligne+colonne;
 	}
     
     public void setPiece(Piece piece) {
@@ -26,10 +26,10 @@ public class Case implements /*Comparable<Case>*/ Cloneable {
 		return piece;
 	}
     // ça c'est pas obligatoire ça sert a avoir la notation pgn des echec genre cf6 pour cavalier f 6 etc...
-    public String[] toStringPGN() {
+    /**public String[] toStringPGN() {
 		String retour[]=new String[2];
 
-		switch(rangee){
+		switch(ligne){
 		case 0:
 			retour[1]="8";
 			break;
@@ -91,7 +91,7 @@ public class Case implements /*Comparable<Case>*/ Cloneable {
 		}
 
 		return retour;
-	}
+	}*/
 
     public Object clone() throws CloneNotSupportedException {   
 		return super.clone();

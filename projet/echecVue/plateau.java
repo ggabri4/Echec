@@ -3,15 +3,17 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 import echecVue.grille.Piece;
+import echecController.*;
+import echecListener.*;
 
 import javax.swing.*;
 
-import echecController.echequierController;
+
 
 
 public class plateau extends JFrame implements Observer{
  
-    private int x,y,r;
+    private int x,y;
     private echecPanel echecP;
 	private static final long serialVersionUID = 1L;
     //on creé le controller pour récuperer la grille.
@@ -28,18 +30,16 @@ public class plateau extends JFrame implements Observer{
 
 	public void afficheinterface(){
         this.setTitle("Chess game");
-        this.setMinimumSize(new Dimension(600,600));
-        // Taille minimum 
-        this.setPreferredSize(new Dimension(800,800));
-        this.setLocationRelativeTo(null); 
-        // Position de la fenetre à l'ouverture.
         Image icon = Toolkit.getDefaultToolkit().getImage("./img/chess.png"); 
-        // On va cercher l'icone
-        this.setIconImage(icon); 
-        // Change l'icone de l'application
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        // Stop le prog lorsqu'on ferme la fenetre
+        this.setIconImage(icon);    // Change l'icone de l'application.
+        this.setMinimumSize(new Dimension(600,600));    //Taille minimum
+        this.setPreferredSize(new Dimension(800,800));  //Taille préférée
+        this.setLocationRelativeTo(null);   //Position de la fenetre à l'ouverture.
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // Stop le prog lorsqu'on ferme la fenetre
         this.echecP = new echecPanel(this);
+        echequierListener echecListener = new echequierListener(x, y);  //Création du listener
+        this.echecP.addMouseListener(echecListener);    //Ajout du listener
+        
         afficheCase();
         this.setContentPane(echecP);
         setVisible(true);
@@ -89,33 +89,33 @@ public class plateau extends JFrame implements Observer{
                 try{ //on vérifie si la case de la grille est pas vide.
 					if(controler.getModel().grille[i][j] !=null ) {
                         //si elle est pas vide on recupére la piece présente
-						Piece pieceCase=controler.getModel().grille[i][j].getPiece();
-						String nomPiece=pieceCase.toString();
-						switch (nomPiece){// en fonction de la pièce on met l'image correspondante.
+						String nomPiece=controler.getModel().grille[i][j];
+					
+						switch (nomPiece.substring(0,1)){// en fonction de la pièce on met l'image correspondante.
 
 						case "T":
                             //la on récupére la couleur de la piéce si elle est blanche on met l'image blanche et sinon noir. TB TN etc.. sont dans imagePiece.
-							g.drawImage(((pieceCase.getCouleur()==Color.white) ? ImagePiece.TB : ImagePiece.TN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+							g.drawImage(((nomPiece=="TB") ? ImagePiece.TB : ImagePiece.TN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
 							break;
 
 						case "C":
-							g.drawImage(((pieceCase.getCouleur()==Color.white) ? ImagePiece.CB : ImagePiece.CN), ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+							g.drawImage(((nomPiece=="CB") ? ImagePiece.CB : ImagePiece.CN), ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
 							break;
 
 						case "F":
-							g.drawImage(((pieceCase.getCouleur()==Color.white) ? ImagePiece.FB : ImagePiece.FN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+							g.drawImage(((nomPiece=="FB") ? ImagePiece.FB : ImagePiece.FN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
 							break;
 
 						case "D":
-							g.drawImage(((pieceCase.getCouleur()==Color.white) ? ImagePiece.DB : ImagePiece.DN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+							g.drawImage(((nomPiece=="DB") ? ImagePiece.DB : ImagePiece.DN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
 							break;
 
 						case "R":
-							g.drawImage(((pieceCase.getCouleur()==Color.white) ? ImagePiece.RB : ImagePiece.RN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+							g.drawImage(((nomPiece=="RB") ? ImagePiece.RB : ImagePiece.RN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
 							break;
 
-						case "":
-							g.drawImage(((pieceCase.getCouleur()==Color.white) ? ImagePiece.PB : ImagePiece.PN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+						case "P":
+							g.drawImage(((nomPiece=="PB") ? ImagePiece.PB : ImagePiece.PN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
 							break;
 						default:
 

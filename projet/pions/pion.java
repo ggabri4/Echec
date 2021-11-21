@@ -12,6 +12,6 @@ public class pion extends Piece {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "";
+        return (couleurPiece==Color.white) ? "PB" : "PN";
     }
 }

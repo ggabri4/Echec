@@ -12,6 +12,6 @@ public class tour extends Piece {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "T";
+        return (couleurPiece==Color.white) ? "TB" : "TN";
     }
 }

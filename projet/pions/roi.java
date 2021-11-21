@@ -12,6 +12,6 @@ public class roi extends Piece {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "R";
+        return (couleurPiece==Color.white) ? "RB" : "RN";
     }
 }

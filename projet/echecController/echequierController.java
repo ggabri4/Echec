@@ -12,6 +12,7 @@ public class echequierController {
 		this.Model=Model;
 	}
 	
+	
 	public Grille getModel(){
 		return Model;
 	}

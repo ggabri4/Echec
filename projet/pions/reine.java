@@ -12,6 +12,6 @@ public class reine extends Piece {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "D";
+        return (couleurPiece==Color.white) ? "DB" : "DN"; // Dame car R déjà pris
     }
 }

@@ -12,6 +12,6 @@ public class fou extends Piece {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "F";
+        return (couleurPiece==Color.white) ? "FB" : "FN";
     }
 }
