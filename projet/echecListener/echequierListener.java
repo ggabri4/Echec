@@ -38,7 +38,6 @@ public class echequierListener extends MouseAdapter{
             if(controller.MovePiece(x1,y1,x2,y2)==1)
                 FirstClick=true;
             else if(controller.MovePiece(x1,y1,x2,y2)==3){
-                System.out.println("yesir");
                 x1 = MouseX;
                 y1 = MouseY;
                 controller.PossibleMoves(x2, y2);

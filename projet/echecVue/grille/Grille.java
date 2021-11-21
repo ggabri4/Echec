@@ -96,11 +96,22 @@ public class Grille implements Observable{
 				restIndicateur();
 				moves.add("coup");
 				notifyObserver(moves);
+				System.out.println("1");
 				return 1;
 			}
 			else if(grille[x2][y2]!=null && (grille[x1][y1].substring(1, 2).contains(grille[x2][y2].substring(1, 2)))){
 				restIndicateur();
+				System.out.println("2");
 				return 3;
+			}
+			else if(grille[x2][y2].contains("M")){
+				System.out.println("3");
+				grille[x2][y2]=grille[x1][y1];
+				grille[x1][y1]=null;
+				restIndicateur();
+				moves.add("coup");
+				notifyObserver(moves);
+				return 1;
 			}
 			
 		}catch(Exception e){
@@ -123,7 +134,13 @@ public class Grille implements Observable{
 				grille[x+val][y] = indicateur.toString();
 				if(grille[x+val*2][y]==null)
 					grille[x+val*2][y] = indicateur.toString();
+				else if(!(grille[x+val*2][y].contains(grille[x][y].substring(1, 2)))){
+					grille[x+val*2][y] = grille[x+val*2][y] + "M";//M pour mangeable
+				}
 				notifyObserver(null);
+				return 1;
+			}else if (!(grille[x+val][y].contains(grille[x][y].substring(1, 2)))){
+				grille[x+val][y] = grille[x+val][y] + "M";//M pour mangeable
 				return 1;
 			}
 		}catch(Exception e){}
