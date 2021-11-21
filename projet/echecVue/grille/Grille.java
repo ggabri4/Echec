@@ -88,30 +88,36 @@ public class Grille implements Observable{
 	
 	public int MovePiece(int x1, int y1, int x2, int y2){
 		try{
-			//System.out.println(x1+" "+y1+" et "+x2+" "+y2);
-			//System.out.println(""+grille[x1][y1]);
 			if(grille[x1][y1]!=null && grille[x2][y2]=="I")
 			{
+				//System.out.println("yesirrr");
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
-				for (int i = 0; i < 7; i++)
-					for (int j = 1; j < 9; j++)
-						if(grille[i][j]=="I")
-							grille[i][j]=null;
+				restIndicateur();
 				moves.add("coup");
 				notifyObserver(moves);
 				return 1;
 			}
+			else if(grille[x2][y2]!=null && (grille[x1][y1].substring(1, 2).contains(grille[x2][y2].substring(1, 2)))){
+				restIndicateur();
+				return 3;
+			}
+			
 		}catch(Exception e){
 			throw(e);
 		}
 		return 0;
 	}
+	public void restIndicateur(){
+		for (int i = 0; i < 7; i++)
+			for (int j = 1; j < 9; j++)
+				if(grille[i][j]=="I")
+					grille[i][j]=null;
+	}
 	public int PossibleMoves(int x, int y){
 		try{
 			ind indicateur = new ind();
-			String piece = grille[x][y];
-			int val = (piece.substring(1, 2).contains("N"))?1:-1;
+			int val = (grille[x][y].substring(1, 2).contains("N"))?1:-1;
 
 			if(grille[x+val][y]==null){
 				grille[x+val][y] = indicateur.toString();
