@@ -1,11 +1,24 @@
 package echecVue;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public final class ImagePiece {
     //j'ai mis les chemin de chaque image
-    public static Image TB=new ImageIcon ("./img/blanc/tour.png").getImage();
-	public static Image TN=new ImageIcon ("./img/noir/tour.png").getImage();
+	public static BufferedImage TB;
+	public static BufferedImage TN;
+	
+    public static void ImageLoader(){
+		try{
+		TB=ImageIO.read(new File("./img/blanc/tour.png"));
+		TN=ImageIO.read(new File("./img/noir/tour.png"));
+	}catch(Exception e){}
+	}
+
+
 	
 	public static Image CB=new ImageIcon ("./img/blanc/cavalier.png").getImage();
 	public static Image CN=new ImageIcon ("./img/noir/cavalier.png").getImage();

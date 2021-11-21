@@ -88,7 +88,9 @@ public class Grille implements Observable{
 	
 	public int MovePiece(int x1, int y1, int x2, int y2){
 		try{
-			if(grille[x1][y1]!=null && grille[x2][y2]=="I")
+			if(grille[x1][y1]==null || grille[x2][y2]==null || x2>6 || y2==0)
+				return 0;
+			else if(grille[x2][y2]=="I")
 			{
 				//System.out.println("yesirrr");
 				grille[x2][y2]=grille[x1][y1];
@@ -96,16 +98,13 @@ public class Grille implements Observable{
 				restIndicateur();
 				moves.add("coup");
 				notifyObserver(moves);
-				System.out.println("1");
 				return 1;
 			}
-			else if(grille[x2][y2]!=null && (grille[x1][y1].substring(1, 2).contains(grille[x2][y2].substring(1, 2)))){
+			else if(grille[x1][y1].substring(1, 2).contains(grille[x2][y2].substring(1, 2))){
 				restIndicateur();
-				System.out.println("2");
 				return 3;
 			}
 			else if(grille[x2][y2].contains("M")){
-				System.out.println("3");
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
 				restIndicateur();

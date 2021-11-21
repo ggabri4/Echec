@@ -5,6 +5,10 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+
+import java.awt.image.ColorConvertOp;
+import java.awt.color.ColorSpace;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -87,10 +91,10 @@ public class plateau extends JFrame implements Observer{
         Dimension dim = echecP.getSize();
         this.echecListener.setsize((int)dim.getWidth(), (int)dim.getHeight());
         //System.out.println(dim.width + "   "+ dim.height); 
+        ImagePiece.ImageLoader();
         for (int i = 0; i < 7; i++) {
             for (int j = 1; j < 9; j++) {
-                //g.drawImage(ImagePiece.pion , ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2), this); 
-                // (dim.width/9)*j) = avoir le x du début de la case
+                
                 // (((dim.width/9)-70)/2) = ((taille de la case)- taille de l'image de la piece)/2 = centre l'image dans la case
                 // Puis idem pour Y ...
                 //Centrage de l'image dans la case.
@@ -99,11 +103,12 @@ public class plateau extends JFrame implements Observer{
 					if(controler.getModel().grille[i][j] !=null ) {
                         //si elle est pas vide on recupére la piece présente
 						String nomPiece= controler.getModel().grille[i][j];
-					
+					    
 						switch (nomPiece.substring(0,1)){// en fonction de la pièce on met l'image correspondante.
-
+        
 						case "T":
                             //la on récupére la couleur de la piéce si elle est blanche on met l'image blanche et sinon noir. TB TN etc.. sont dans imagePiece.
+                            //ImagePiece.TB.setRGB(0, 0, 70, 70, null, 0, 70);;
 							g.drawImage(((nomPiece.contains("TB")) ? ImagePiece.TB : ImagePiece.TN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
 							break;
 
@@ -129,8 +134,7 @@ public class plateau extends JFrame implements Observer{
                         case "I":
                             g.drawImage(ImagePiece.Indicateur, ((dim.width/9)*j)+(((dim.width/9)-30)/2) , ((dim.height/8)*i)+(((dim.height/8)-30)/2) , this);
 						default:
-
-						}
+                        }
 					}
 				}catch(Exception e){
 				}
