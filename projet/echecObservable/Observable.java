@@ -12,5 +12,5 @@ public interface Observable {
 	public void removeObserver(Observer obs);
 	
 	
-	public void notifyObserver(ArrayList<String> coups, boolean promotion, boolean echecEtMat, boolean pat);
+	public void notifyObserver(ArrayList<String> moves);
 }

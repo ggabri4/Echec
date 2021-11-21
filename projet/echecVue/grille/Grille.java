@@ -5,12 +5,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Observer;
 
+import javax.swing.SwingUtilities;
+
+import java.util.Iterator;
+
+
 import echecObservable.*;
+import echecController.echequierController;
+import echecVue.plateau;
 
 public class Grille implements Observable{
 
     //on creé un tableau de case
     public String[][] grille;
+	private  ArrayList<Observer> listObs;
+	private ArrayList<String> moves;
 
     public void setGrille(String[][] grille) {
 		this.grille = grille;
@@ -22,14 +31,9 @@ public class Grille implements Observable{
 
     public Grille() {
     // on initialise le tableau de case.
-    this.grille  = new String[8][9];
-	
-        // on initalise chaque case vide
-		//for(int i=0; i<grille.length; i++) {
-		//	for(int j=0; j<grille[i].length; j++) {
-		//		grille[i][j] = new String(null,i,j);//null correspond a "sans piéce sur la case".
-		//	}
-		//}
+    	this.grille  = new String[8][9];
+		moves = new ArrayList<String>();
+		listObs = new ArrayList<Observer>();
         //ici on crée les objet correspondant aux piéces et a la position qu'il ont sur l'echequier au début.
 		//Noir :
 		tour tourN = new tour(Color.black);
@@ -79,72 +83,49 @@ public class Grille implements Observable{
 		grille[5][6]= pionB.toString();
 		grille[5][7]= pionB.toString();
 		grille[5][8]= pionB.toString();
+		addObserver();
     }
-	public String getcase(int x, int y){
-		return grille[x][y];
-	}
-	public void setcase(int x, int y, String piece){
-		grille[x][y] = piece;
-	}
+	
 	public void MovePiece(int x1, int y1, int x2, int y2){
 		try{
 			//System.out.println(x1+" "+y1+" et "+x2+" "+y2);
 			//System.out.println(""+grille[x1][y1]);
-			if(grille[x1][y1]!=null && grille[x2][y2]==null){
-			grille[x2][y2]=grille[x1][y1];
-			grille[x1][y1]=null;
-			//System.out.println("changement de place");
-			
+			if(grille[x1][y1]!=null && grille[x2][y2]==null)
+			{
+				grille[x2][y2]=grille[x1][y1];
+				grille[x1][y1]=null;
+				moves.add("coup");
+				notifyObserver(moves);
 			}
 		}catch(Exception e){
-			//throw(e);
+			throw(e);
 		}
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Arrays.deepHashCode(grille);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Grille other = (Grille) obj;
-		if (!Arrays.deepEquals(grille, other.grille))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Grille [grille=" + Arrays.toString(grille) + "]";
-	}
 
 	@Override
 	public void addObserver() {
 		// TODO Auto-generated method stub
-		
+		this.listObs.add(new plateau(700,700,new echequierController(this)));
+		//notifyObserver(null);
 	}
 
 
 	@Override
-	public void notifyObserver(ArrayList<String> coups, boolean promotion, boolean echecEtMat, boolean pat) {
+	public void notifyObserver(ArrayList<String> moves) {
 		// TODO Auto-generated method stub
+		Iterator it = listObs.iterator();
 		
+		while (it.hasNext()) {
+			System.out.println("ici");
+			((plateau) it.next()).repaint();
+		}
 	}
 
 	@Override
 	public void removeObserver(Observer obs) {
 		// TODO Auto-generated method stub
-		
+		listObs.remove(obs);
 	}
 
 }

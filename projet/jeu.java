@@ -12,7 +12,6 @@ public class jeu {
 		//ici je crée une grille esuite j'ai crée un controller qui prend la grille crée
 		Grille grille = new Grille();
 		echequierController controler=new echequierController(grille);
-		plateau plateau = new plateau(700,700, controler);
 		System.out.println("Lancement de l'application");
 
 	}
