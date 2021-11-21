@@ -1,25 +1,53 @@
 package echecListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Point;
+import echecController.echequierController;
 
 public class echequierListener extends MouseAdapter{
     int x,y;
+    int x1, y1;//position premier click
+    int x2, y2;//position deuxième click
+    echequierController controller;
     boolean FirstClick;
 
-    public echequierListener(int x, int y){
+    public echequierListener(int x, int y, echequierController controller){
         super();
         this.x = x;
         this.y = y;
+        this.controller = controller;
         this.FirstClick=true;
     }
     public void mousePressed(MouseEvent e){
         int MouseX = e.getX();
         int MouseY = e.getY();
-        System.out.println(MouseX+"  "+MouseY);
+        String pos = new String(calculcase(MouseX, MouseY));
+        MouseX= Integer.parseInt(pos.substring(0,1));
+        MouseY= Integer.parseInt(pos.substring(2,3));
         if(FirstClick){
-            
+            //System.out.println("1");
+            x1 = MouseX;
+            y1 = MouseY;
+            FirstClick=false;
         }
-
+        else{
+            x2 = MouseX;
+            y2 = MouseY;
+            //System.out.println("2");
+            FirstClick=true;
+            controller.MovePiece(x1,y1,x2,y2);
+            //System.out.println("grille["+ x1+"]["+ y1+"]");//position click 1
+            //System.out.println("grille["+ x2+"]["+ y2+"]");//position click 2
+        }
+        //System.out.println(x1 + " " + y1 + " et " + x2 + " " + y2);
+    }
+    public void setsize(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+    public String calculcase(int i, int j){
+        //System.out.println("grille["+ i/(x/9)+"]["+ j/(y/8)+"]");//affiche la case clické
+        return i/(x/9)+";"+j/(y/8);
     }
     
 }

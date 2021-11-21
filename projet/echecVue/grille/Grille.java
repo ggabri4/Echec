@@ -1,8 +1,13 @@
 package echecVue.grille;
 import pions.*;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Observer;
 
-public class Grille {
+import echecObservable.*;
+
+public class Grille implements Observable{
 
     //on creé un tableau de case
     public String[][] grille;
@@ -80,6 +85,66 @@ public class Grille {
 	}
 	public void setcase(int x, int y, String piece){
 		grille[x][y] = piece;
+	}
+	public void MovePiece(int x1, int y1, int x2, int y2){
+		try{
+			//System.out.println(x1+" "+y1+" et "+x2+" "+y2);
+			//System.out.println(""+grille[x1][y1]);
+			if(grille[x1][y1]!=null && grille[x2][y2]==null){
+			grille[x2][y2]=grille[x1][y1];
+			grille[x1][y1]=null;
+			//System.out.println("changement de place");
+			
+			}
+		}catch(Exception e){
+			//throw(e);
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.deepHashCode(grille);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Grille other = (Grille) obj;
+		if (!Arrays.deepEquals(grille, other.grille))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Grille [grille=" + Arrays.toString(grille) + "]";
+	}
+
+	@Override
+	public void addObserver() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void notifyObserver(ArrayList<String> coups, boolean promotion, boolean echecEtMat, boolean pat) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeObserver(Observer obs) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

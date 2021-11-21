@@ -12,8 +12,10 @@ public class echequierController {
 		this.Model=Model;
 	}
 	
-	
 	public Grille getModel(){
 		return Model;
+	}
+	public void MovePiece(int x1, int y1, int x2, int y2){
+		Model.MovePiece(y1, x1, y2, x2);//inverser les valeurs pour la grille
 	}
 }

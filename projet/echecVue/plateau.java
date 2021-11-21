@@ -25,6 +25,7 @@ public class plateau extends JFrame implements Observer{
 	private static final long serialVersionUID = 1L;
     //on creé le controller pour récuperer la grille.
     private echequierController controler;
+    private echequierListener echecListener;
 
 	public plateau(int x, int y, echequierController controler) {
         super("plateau");
@@ -44,7 +45,7 @@ public class plateau extends JFrame implements Observer{
         this.setLocationRelativeTo(null);   //Position de la fenetre à l'ouverture.
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // Stop le prog lorsqu'on ferme la fenetre
         this.echecP = new echecPanel(this);
-        echequierListener echecListener = new echequierListener(x, y);  //Création du listener
+        this.echecListener = new echequierListener(x, y, controler);  //Création du listener
         this.echecP.addMouseListener(echecListener);    //Ajout du listener
         
         afficheCase();
@@ -84,7 +85,8 @@ public class plateau extends JFrame implements Observer{
     
     public void affichePiece(Graphics g){
         Dimension dim = echecP.getSize();
-        System.out.println(dim.height + "   "+ dim.width); 
+        this.echecListener.setsize((int)dim.getWidth(), (int)dim.getHeight());
+        System.out.println(dim.width + "   "+ dim.height); 
         for (int i = 0; i < 7; i++) {
             for (int j = 1; j < 9; j++) {
                 //g.drawImage(ImagePiece.pion , ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2), this); 
@@ -133,7 +135,10 @@ public class plateau extends JFrame implements Observer{
             }
         }   
     }
-
+    public Dimension getsize(){
+        Dimension dime = echecP.getSize();
+        return dime;
+    }
     @Override
     public void update(Observable o, Object arg) {
         repaint();
