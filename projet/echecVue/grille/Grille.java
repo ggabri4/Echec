@@ -75,5 +75,11 @@ public class Grille {
 		grille[5][7]= pionB.toString();
 		grille[5][8]= pionB.toString();
     }
+	public String getcase(int x, int y){
+		return grille[x][y];
+	}
+	public void setcase(int x, int y, String piece){
+		grille[x][y] = piece;
+	}
 
 }

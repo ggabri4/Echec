@@ -1,12 +1,19 @@
 package echecVue;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.Observable;
 import java.util.Observer;
-import echecVue.grille.Piece;
-import echecController.*;
-import echecListener.*;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import echecController.echequierController;
+import echecListener.echequierListener;
 
 
 
@@ -89,7 +96,7 @@ public class plateau extends JFrame implements Observer{
                 try{ //on vérifie si la case de la grille est pas vide.
 					if(controler.getModel().grille[i][j] !=null ) {
                         //si elle est pas vide on recupére la piece présente
-						String nomPiece=controler.getModel().grille[i][j];
+						String nomPiece= controler.getModel().grille[i][j];
 					
 						switch (nomPiece.substring(0,1)){// en fonction de la pièce on met l'image correspondante.
 
