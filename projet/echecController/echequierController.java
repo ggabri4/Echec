@@ -15,8 +15,8 @@ public class echequierController {
 	public Grille getModel(){
 		return Model;
 	}
-	public void PossibleMoves(int x, int y){
-		Model.PossibleMoves(y,x);//On inverse les valeurs pour la grille
+	public int PossibleMoves(int x, int y){
+		return Model.PossibleMoves(y,x);//On inverse les valeurs pour la grille
 	}
 	public int MovePiece(int x1, int y1, int x2, int y2){
 		return Model.MovePiece(y1, x1, y2, x2);//On inverse les valeurs pour la grille

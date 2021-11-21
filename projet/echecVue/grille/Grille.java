@@ -107,18 +107,21 @@ public class Grille implements Observable{
 		}
 		return 0;
 	}
-	public void PossibleMoves(int x, int y){
+	public int PossibleMoves(int x, int y){
 		try{
 			ind indicateur = new ind();
 			String piece = grille[x][y];
-			System.out.println("" + (x-2) + " "+ y);
-			if(grille[x-1][y]==null){
-				grille[x-1][y] = indicateur.toString();
-				if(grille[x-2][y]==null)
-					grille[x-2][y] = indicateur.toString();
+			int val = (piece.substring(1, 2).contains("N"))?1:-1;
+
+			if(grille[x+val][y]==null){
+				grille[x+val][y] = indicateur.toString();
+				if(grille[x+val*2][y]==null)
+					grille[x+val*2][y] = indicateur.toString();
 				notifyObserver(null);
+				return 1;
 			}
 		}catch(Exception e){}
+		return 0;
 	}
 
 

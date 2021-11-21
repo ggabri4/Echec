@@ -27,8 +27,9 @@ public class echequierListener extends MouseAdapter{
         if(FirstClick){
             x1 = MouseX;
             y1 = MouseY;
-            FirstClick=false;
-            controller.PossibleMoves(x1, y1);
+            if(controller.PossibleMoves(x1, y1) == 1)
+                FirstClick=false;
+            
         }
         else{
             x2 = MouseX;
