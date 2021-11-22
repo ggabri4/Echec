@@ -6,9 +6,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import java.awt.image.ColorConvertOp;
-import java.awt.color.ColorSpace;
-
 import java.util.Observable;
 import java.util.Observer;
 

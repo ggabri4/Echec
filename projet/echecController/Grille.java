@@ -7,7 +7,6 @@ import java.util.Observer;
 import java.util.Iterator;
 
 import echecObservable.*;
-import echecController.echequierController;
 import echecVue.plateau;
 
 public class Grille implements Observable{
@@ -200,7 +199,6 @@ public class Grille implements Observable{
 
 	@Override
 	public void addObserver() {
-		// TODO Auto-generated method stub
 		this.listObs.add(new plateau(700,700,new echequierController(this)));
 		//notifyObserver(null);
 	}
@@ -208,8 +206,7 @@ public class Grille implements Observable{
 
 	@Override
 	public void notifyObserver(ArrayList<String> moves) {
-		// TODO Auto-generated method stub
-		Iterator it = listObs.iterator();
+		Iterator<Observer> it = listObs.iterator();
 		
 		while (it.hasNext()) {
 			((plateau) it.next()).update(null, null);
@@ -218,7 +215,6 @@ public class Grille implements Observable{
 
 	@Override
 	public void removeObserver(Observer obs) {
-		// TODO Auto-generated method stub
 		listObs.remove(obs);
 	}
 }

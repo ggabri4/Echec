@@ -2,7 +2,6 @@
 //import javax.swing.JFrame;
 
 import echecController.*;
-import echecVue.*;
 
 public class jeu {
 
@@ -11,7 +10,7 @@ public class jeu {
 		//ici je crée une grille esuite j'ai crée un controller qui prend la grille crée
 		Grille grille = new Grille();
 		echequierController controler=new echequierController(grille);
-		System.out.println("Lancement de l'application");
+		System.out.println("Lancement de l'application : " + controler);
 
 	}
 

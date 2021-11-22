@@ -10,7 +10,6 @@ public class cavalier extends Piece {
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return (couleurPiece==Color.white) ? "CB" : "CN";
     }
 }
