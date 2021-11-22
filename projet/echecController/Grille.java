@@ -2,13 +2,9 @@ package echecController;
 import pions.*;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Observer;
 
-import javax.swing.SwingUtilities;
-
 import java.util.Iterator;
-
 
 import echecObservable.*;
 import echecController.echequierController;
@@ -96,7 +92,8 @@ public class Grille implements Observable{
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
 				restIndicateur();
-				moves.add("coup");
+				moves.add("move("+x1+","+y1+";"+x2+","+y2+")");
+                System.out.println(moves);
 				notifyObserver(moves);
 				return 1;
 			}
@@ -105,10 +102,12 @@ public class Grille implements Observable{
 				return 3;
 			}
 			else if(grille[x2][y2].contains("M")){
+                System.out.println("ICI");
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
 				restIndicateur();
-				moves.add("coup");
+				moves.add("move("+x1+","+y1+";"+x2+","+y2+")");
+                //System.out.println(moves);
 				notifyObserver(moves);
 				return 1;
 			}
@@ -120,9 +119,13 @@ public class Grille implements Observable{
 	}
 	public void restIndicateur(){
 		for (int i = 0; i < 7; i++)
-			for (int j = 1; j < 9; j++)
-				if(grille[i][j]=="I")
+			for (int j = 1; j < 9; j++){
+                if(grille[i][j]=="I")
 					grille[i][j]=null;
+                else if(grille[i][j]!=null && grille[i][j].contains("M"))
+                    grille[i][j] = grille[i][j].substring(0,2);
+            }
+				
 	}
 	public int PossibleMoves(int x, int y){
 		try{
@@ -133,13 +136,17 @@ public class Grille implements Observable{
 				grille[x+val][y] = indicateur.toString();
 				if(grille[x+val*2][y]==null)
 					grille[x+val*2][y] = indicateur.toString();
-				else if(!(grille[x+val*2][y].contains(grille[x][y].substring(1, 2)))){
-					grille[x+val*2][y] = grille[x+val*2][y] + "M";//M pour mangeable
+				else if(!(grille[x+val*2][y+1].contains(grille[x][y].substring(1, 2)))){
+					grille[x+val*2][y+1] = grille[x+val*2][y+1] + "M";//M pour mangeable
 				}
 				notifyObserver(null);
 				return 1;
-			}else if (!(grille[x+val][y].contains(grille[x][y].substring(1, 2)))){
-				grille[x+val][y] = grille[x+val][y] + "M";//M pour mangeable
+			}else if (!(grille[x+val][y+1].contains(grille[x][y].substring(1, 2)))){
+                System.out.println("ICICI");
+				grille[x+val][y+1] = grille[x+val][y+1] + "M";//M pour mangeable
+				return 1;
+			}else if (!(grille[x+val][y-1].contains(grille[x][y].substring(1, 2)))){
+				grille[x+val][y-1] = grille[x+val][y-1] + "M";//M pour mangeable
 				return 1;
 			}
 		}catch(Exception e){}
