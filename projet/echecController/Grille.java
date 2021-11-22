@@ -27,7 +27,8 @@ public class Grille implements Observable{
 
     public Grille() {
     // on initialise le tableau de case.
-    	this.grille  = new String[8][9];
+    	this.grille  = new String[15][15];	//Grille légérement trop grande pour éviter le out hors range lors du calcul des déplacements
+											//Les partis de la grille pas utilisées ne causeront pas de problèmes 
 		moves = new ArrayList<String>();
 		listObs = new ArrayList<Observer>();
         //ici on crée les objet correspondant aux piéces et a la position qu'il ont sur l'echequier au début.
@@ -88,12 +89,10 @@ public class Grille implements Observable{
 				return 0;
 			else if(grille[x2][y2]=="I")
 			{
-				//System.out.println("yesirrr");
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
 				restIndicateur();
 				moves.add("move("+x1+","+y1+";"+x2+","+y2+")");
-                System.out.println(moves);
 				notifyObserver(moves);
 				return 1;
 			}
@@ -102,7 +101,6 @@ public class Grille implements Observable{
 				return 3;
 			}
 			else if(grille[x2][y2].contains("M")){
-                System.out.println("ICI");
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
 				restIndicateur();
@@ -130,30 +128,57 @@ public class Grille implements Observable{
 	public int PossibleMoves(int x, int y){
 		try{
 			ind indicateur = new ind();
-			int val = (grille[x][y].substring(1, 2).contains("N"))?1:-1;
-
+			
+			if(grille[x][y] == null)
+				return 0;
+			
+			int	val = (grille[x][y].substring(1, 2).contains("N"))?1:-1;
+			if(x+val<0 || x+val>6)
+				return 0;
+			//if(x+val>0 && x+val<5){return 0;}
 			if(grille[x+val][y]==null){
 				grille[x+val][y] = indicateur.toString();
 				if(grille[x+val*2][y]==null)
 					grille[x+val*2][y] = indicateur.toString();
-				else if(!(grille[x+val*2][y+1].contains(grille[x][y].substring(1, 2)))){
-					grille[x+val*2][y+1] = grille[x+val*2][y+1] + "M";//M pour mangeable
-				}
-				notifyObserver(null);
-				return 1;
-			}else if (!(grille[x+val][y+1].contains(grille[x][y].substring(1, 2)))){
-                System.out.println("ICICI");
-				grille[x+val][y+1] = grille[x+val][y+1] + "M";//M pour mangeable
-				return 1;
-			}else if (!(grille[x+val][y-1].contains(grille[x][y].substring(1, 2)))){
-				grille[x+val][y-1] = grille[x+val][y-1] + "M";//M pour mangeable
+
+				//PARTI SI UN PION EST MANGEABLE -------------------------------
+				
+				manger(val,x,y);
+				notifyObserver(null);//afficher les indicateurs de déplacements
 				return 1;
 			}
-		}catch(Exception e){}
+			//if(grille[x+val][y+1] == null && grille[x+val][y-1] == null){}
+			else if(manger(val,x,y)==1){
+				notifyObserver(null);//afficher les indicateurs de déplacements
+				return 1;
+			}
+				
+		}catch(Exception e){throw(e);}
 		return 0;
 	}
 
-
+	public int manger(int val, int x, int y){
+		//System.out.println("ICI");
+		if (grille[x+val][y+1] != null) {
+			if (!(grille[x+val][y+1].contains(grille[x][y].substring(1, 2)))){
+				System.out.println("MON");
+				grille[x+val][y+1] = grille[x+val][y+1] + "M";//M pour mangeable
+				if (grille[x+val][y-1] != null&&!(grille[x+val][y-1].contains(grille[x][y].substring(1, 2)))){}
+				else
+					return 1;
+			}
+		}
+		if(grille[x+val][y-1] != null){
+			System.out.println("REUF");
+			if (!(grille[x+val][y-1].contains(grille[x][y].substring(1, 2)))){
+				System.out.println("!!!");
+				grille[x+val][y-1] = grille[x+val][y-1] + "M";//M pour mangeable
+				return 1;
+			}	
+		}
+		return 0;
+	}
+	
 	@Override
 	public void addObserver() {
 		// TODO Auto-generated method stub
