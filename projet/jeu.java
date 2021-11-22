@@ -1,9 +1,8 @@
 //import pions.*;
 //import javax.swing.JFrame;
 
-import echecController.echequierController;
+import echecController.*;
 import echecVue.*;
-import echecVue.grille.Grille;
 
 public class jeu {
 

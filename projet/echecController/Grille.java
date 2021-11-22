@@ -1,4 +1,4 @@
-package echecVue.grille;
+package echecController;
 import pions.*;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -170,5 +170,4 @@ public class Grille implements Observable{
 		// TODO Auto-generated method stub
 		listObs.remove(obs);
 	}
-
 }
