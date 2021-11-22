@@ -16,6 +16,19 @@ public class Grille implements Observable{
     public String[][] grille;
 	private  ArrayList<Observer> listObs;
 	private ArrayList<String> moves;
+	tour tourN;
+	cavalier cavalierN;
+	fou fouN;
+	reine reineN;
+	roi roiN;
+	pion pionN;
+	//Blanc :
+	tour tourB;
+	cavalier cavalierB;
+	fou fouB;
+	reine reineB;
+	roi roiB;
+	pion pionB;
 
     public void setGrille(String[][] grille) {
 		this.grille = grille;
@@ -33,19 +46,19 @@ public class Grille implements Observable{
 		listObs = new ArrayList<Observer>();
         //ici on crée les objet correspondant aux piéces et a la position qu'il ont sur l'echequier au début.
 		//Noir :
-		tour tourN = new tour(Color.black);
-		cavalier cavalierN = new cavalier(Color.black);
-		fou fouN = new fou(Color.black);
-		reine reineN = new reine(Color.black);
-		roi roiN = new roi(Color.black);
-		pion pionN = new pion(Color.black);
+		tourN = new tour(Color.black);
+		cavalierN = new cavalier(Color.black);
+		fouN = new fou(Color.black);
+		reineN = new reine(Color.black);
+		roiN = new roi(Color.black);
+		pionN = new pion(Color.black);
 		//Blanc :
-		tour tourB = new tour(Color.white);
-		cavalier cavalierB = new cavalier(Color.white);
-		fou fouB = new fou(Color.white);
-		reine reineB = new reine(Color.white);
-		roi roiB = new roi(Color.white);
-		pion pionB = new pion(Color.white);
+		tourB = new tour(Color.white);
+		cavalierB = new cavalier(Color.white);
+		fouB = new fou(Color.white);
+		reineB = new reine(Color.white);
+		roiB = new roi(Color.white);
+		pionB = new pion(Color.white);
 
 		grille[0][1]= tourN.toString();
 		grille[0][2]= cavalierN.toString();
@@ -126,59 +139,65 @@ public class Grille implements Observable{
 				
 	}
 	public int PossibleMoves(int x, int y){
+		int retour = 0;
 		try{
-			ind indicateur = new ind();
-			
-			if(grille[x][y] == null)
+			if(grille[x][y] == null || grille[x][y] == "I")
 				return 0;
-			
+
 			int	val = (grille[x][y].substring(1, 2).contains("N"))?1:-1;
+
 			if(x+val<0 || x+val>6)
 				return 0;
-			//if(x+val>0 && x+val<5){return 0;}
-			if(grille[x+val][y]==null){
-				grille[x+val][y] = indicateur.toString();
-				if(grille[x+val*2][y]==null)
-					grille[x+val*2][y] = indicateur.toString();
-
-				//PARTI SI UN PION EST MANGEABLE -------------------------------
-				
-				manger(val,x,y);
-				notifyObserver(null);//afficher les indicateurs de déplacements
-				return 1;
+			
+			switch(grille[x][y].substring(0, 1)){
+				case "P":
+						retour = pionB.pionmoves(grille, x, y, val);
+					break;
 			}
-			//if(grille[x+val][y+1] == null && grille[x+val][y-1] == null){}
-			else if(manger(val,x,y)==1){
-				notifyObserver(null);//afficher les indicateurs de déplacements
-				return 1;
-			}
-				
-		}catch(Exception e){throw(e);}
-		return 0;
-	}
-
-	public int manger(int val, int x, int y){
-		//System.out.println("ICI");
-		if (grille[x+val][y+1] != null) {
-			if (!(grille[x+val][y+1].contains(grille[x][y].substring(1, 2)))){
-				System.out.println("MON");
-				grille[x+val][y+1] = grille[x+val][y+1] + "M";//M pour mangeable
-				if (grille[x+val][y-1] != null&&!(grille[x+val][y-1].contains(grille[x][y].substring(1, 2)))){}
-				else
-					return 1;
-			}
-		}
-		if(grille[x+val][y-1] != null){
-			System.out.println("REUF");
-			if (!(grille[x+val][y-1].contains(grille[x][y].substring(1, 2)))){
-				System.out.println("!!!");
-				grille[x+val][y-1] = grille[x+val][y-1] + "M";//M pour mangeable
-				return 1;
-			}	
-		}
-		return 0;
-	}
+			
+			notifyObserver(moves);
+			//if(pionmoves(x,y,val)==1){
+			//	notifyObserver(null);//afficher les indicateurs de déplacements
+			//	return 1;
+			//}
 	
+		}catch(Exception e){throw(e);}
+		return retour;
+	}
+
+	//public int pionmoves(int x, int y, int val){
+	//	if(grille[x+val][y]==null){
+	//		grille[x+val][y] = "I";
+	//		if(x+val*2<0 || x+val*2>6){System.out.println("OUT OF RANGE");}
+	//		else if(grille[x+val*2][y]==null)
+	//			grille[x+val*2][y] = "I";
+	//		//PARTI SI UN PION EST MANGEABLE -------------------------------
+	//		manger(val,x,y);
+	//		return 1;
+	//	}
+	//	else if(manger(val,x,y)==1){
+	//		return 1;
+	//	}
+	//	return 0;
+	//}
+	//public int manger(int val, int x, int y){
+	//	if (grille[x+val][y+1] != null) {
+	//		if (!(grille[x+val][y+1].contains(grille[x][y].substring(1, 2)))){
+	//			grille[x+val][y+1] = grille[x+val][y+1] + "M";//M pour mangeable
+	//			if (grille[x+val][y-1] != null&&!(grille[x+val][y-1].contains(grille[x][y].substring(1, 2)))){}
+	//			else
+	//				return 1;
+	//		}
+	//	}
+	//	if(grille[x+val][y-1] != null){
+	//		if (!(grille[x+val][y-1].contains(grille[x][y].substring(1, 2)))){
+	//			grille[x+val][y-1] = grille[x+val][y-1] + "M";//M pour mangeable
+	//			return 1;
+	//		}	
+	//	}
+	//	return 0;
+	//}
+
 	@Override
 	public void addObserver() {
 		// TODO Auto-generated method stub
