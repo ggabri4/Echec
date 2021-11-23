@@ -12,30 +12,22 @@ import echecVue.plateau;
 public class Grille implements Observable{
 
     //on creé un tableau de case
-    public String[][] grille;
+    private String[][] grille;
 	private  ArrayList<Observer> listObs;
 	private ArrayList<String> moves;
-	tour tourN;
-	cavalier cavalierN;
-	fou fouN;
-	reine reineN;
-	roi roiN;
-	pion pionN;
+	private tour tourN;
+	private cavalier cavalierN;
+	private fou fouN;
+	private reine reineN;
+	private roi roiN;
+	private pion pionN;
 	//Blanc :
-	tour tourB;
-	cavalier cavalierB;
-	fou fouB;
-	reine reineB;
-	roi roiB;
-	pion pionB;
-
-    public void setGrille(String[][] grille) {
-		this.grille = grille;
-	}
-
-	public String[][] getGrille() {
-		return grille;
-	}
+	private tour tourB;
+	private cavalier cavalierB;
+	private fou fouB;
+	private reine reineB;
+	private roi roiB;
+	private pion pionB;
 
     public Grille() {
     // on initialise le tableau de case.
@@ -103,19 +95,19 @@ public class Grille implements Observable{
 			{
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
-				restIndicateur();
+				resetIndicateur();
 				moves.add("move("+x1+","+y1+";"+x2+","+y2+")");
 				notifyObserver(moves);
 				return 1;
 			}
 			else if(grille[x1][y1].substring(1, 2).contains(grille[x2][y2].substring(1, 2))){
-				restIndicateur();
+				resetIndicateur();
 				return 3;
 			}
 			else if(grille[x2][y2].contains("M")){
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
-				restIndicateur();
+				resetIndicateur();
 				moves.add("move("+x1+","+y1+";"+x2+","+y2+")");
                 //System.out.println(moves);
 				notifyObserver(moves);
@@ -127,7 +119,7 @@ public class Grille implements Observable{
 		}
 		return 0;
 	}
-	public void restIndicateur(){
+	public void resetIndicateur(){
 		for (int i = 0; i < 7; i++)
 			for (int j = 1; j < 9; j++){
                 if(grille[i][j]=="I")
@@ -163,39 +155,17 @@ public class Grille implements Observable{
 		}catch(Exception e){throw(e);}
 		return retour;
 	}
+	
+	public void setGrille(String[][] grille) {
+		this.grille = grille;
+	}
 
-	//public int pionmoves(int x, int y, int val){
-	//	if(grille[x+val][y]==null){
-	//		grille[x+val][y] = "I";
-	//		if(x+val*2<0 || x+val*2>6){System.out.println("OUT OF RANGE");}
-	//		else if(grille[x+val*2][y]==null)
-	//			grille[x+val*2][y] = "I";
-	//		//PARTI SI UN PION EST MANGEABLE -------------------------------
-	//		manger(val,x,y);
-	//		return 1;
-	//	}
-	//	else if(manger(val,x,y)==1){
-	//		return 1;
-	//	}
-	//	return 0;
-	//}
-	//public int manger(int val, int x, int y){
-	//	if (grille[x+val][y+1] != null) {
-	//		if (!(grille[x+val][y+1].contains(grille[x][y].substring(1, 2)))){
-	//			grille[x+val][y+1] = grille[x+val][y+1] + "M";//M pour mangeable
-	//			if (grille[x+val][y-1] != null&&!(grille[x+val][y-1].contains(grille[x][y].substring(1, 2)))){}
-	//			else
-	//				return 1;
-	//		}
-	//	}
-	//	if(grille[x+val][y-1] != null){
-	//		if (!(grille[x+val][y-1].contains(grille[x][y].substring(1, 2)))){
-	//			grille[x+val][y-1] = grille[x+val][y-1] + "M";//M pour mangeable
-	//			return 1;
-	//		}	
-	//	}
-	//	return 0;
-	//}
+	public String[][] getGrille() {
+		return grille;
+	}
+	public String getCase(int i, int j){
+		return grille[i][j];
+	}
 
 	@Override
 	public void addObserver() {

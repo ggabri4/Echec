@@ -11,7 +11,6 @@ public class jeu {
 		Grille grille = new Grille();
 		echequierController controler=new echequierController(grille);
 		System.out.println("Lancement de l'application : " + controler);
-
 	}
 
 }

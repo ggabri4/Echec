@@ -11,9 +11,9 @@ public class pion extends Piece {
     public int pionmoves(String grille[][], int x, int y, int val){
 		if(grille[x+val][y]==null){
 			grille[x+val][y] = "I";
-			if(x+val*2<0 || x+val*2>6){System.out.println("OUT OF RANGE");}
-			else if(grille[x+val*2][y]==null)
-				grille[x+val*2][y] = "I";
+			if(x+val<0 || x+val>6){System.out.println("OUT OF RANGE");}
+			else if(grille[x+val][y]==null)
+				grille[x+val*1][y] = "I";
 
 			//PARTI SI UN PION EST MANGEABLE -------------------------------
 			eatPiece(grille, val,x,y);

@@ -1,11 +1,11 @@
 package echecVue;
+import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
-
 import java.util.Observable;
 import java.util.Observer;
 
@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 
 import echecController.echequierController;
 import echecListener.echequierListener;
-
 
 
 
@@ -54,7 +53,16 @@ public class plateau extends JFrame implements Observer{
         setVisible(true);
         //On peut rendre la frame visible
     }
-
+    //protected void processWindowEvent(AWTEvent e){
+    //    try {
+    //        System.out.println("yses");
+    //        XMLTools.encodeToFile(controler.getModel().getGrille(), "grille.xml");
+    //        this.setVisible(false);
+    //        this.dispose();
+    //    } catch(Exception e) {
+    //        e.printStackTrace();
+    //    }
+    //}
 	public void afficheCase() {//Affichage des cases 
 		int chiffre = 7;
 		int lettre = 65;
@@ -97,9 +105,9 @@ public class plateau extends JFrame implements Observer{
                 //Centrage de l'image dans la case.
 
                 try{ //on vérifie si la case de la grille est pas vide.
-					if(controler.getModel().grille[i][j] !=null ) {
+					if(controler.getModel().getCase(i,j) !=null ) {
                         //si elle est pas vide on recupére la piece présente
-						String nomPiece= controler.getModel().grille[i][j];
+						String nomPiece= controler.getModel().getCase(i,j);
 					    
 						switch (nomPiece.substring(0,1)){// en fonction de la pièce on met l'image correspondante.
         
