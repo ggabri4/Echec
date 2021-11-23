@@ -13,6 +13,7 @@ public class echequierController {
 	public Grille getModel(){
 		return Model;
 	}
+	
 	public int PossibleMoves(int x, int y){
 		return Model.PossibleMoves(y,x);//On inverse les valeurs pour la grille
 	}
