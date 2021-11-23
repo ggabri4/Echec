@@ -45,12 +45,14 @@ public class echequierListener extends MouseAdapter{
             //System.out.println("grille["+ x1+"]["+ y1+"]");//position click 1
             //System.out.println("grille["+ x2+"]["+ y2+"]");//position click 2
         }
+        //System.out.println(x1 + " " + y1 + " et " + x2 + " " + y2 + " " + FirstClick);
     }
     public void setsize(int x, int y){
         this.x = x;
         this.y = y;
     }
     public String calculcase(int i, int j){
+        //System.out.println("grille["+ i/(x/9)+"]["+ j/(y/8)+"]");//affiche la case clické
         return i/(x/9)+";"+j/(y/8);
     }
     
