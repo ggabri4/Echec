@@ -1,11 +1,12 @@
 package echecVue;
-import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -37,6 +38,16 @@ public class plateau extends JFrame implements Observer{
     }
 
 	public void afficheinterface(){
+        addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent e){
+               try {
+                   XMLTools.encodeToFile(controler.getModel(), "grille.xml");
+               } catch (Exception e1) {
+                   e1.printStackTrace();
+               }
+               dispose();
+               System.exit(0);
+        }});
         this.setTitle("Chess game");
         Image icon = Toolkit.getDefaultToolkit().getImage("./img/chess.png"); 
         this.setIconImage(icon);    // Change l'icone de l'application.
@@ -53,16 +64,7 @@ public class plateau extends JFrame implements Observer{
         setVisible(true);
         //On peut rendre la frame visible
     }
-    //protected void processWindowEvent(AWTEvent e){
-    //    try {
-    //        System.out.println("yses");
-    //        XMLTools.encodeToFile(controler.getModel().getGrille(), "grille.xml");
-    //        this.setVisible(false);
-    //        this.dispose();
-    //    } catch(Exception e) {
-    //        e.printStackTrace();
-    //    }
-    //}
+    
 	public void afficheCase() {//Affichage des cases 
 		int chiffre = 7;
 		int lettre = 65;

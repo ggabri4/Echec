@@ -1,150 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="15.0.2" class="java.beans.XMLDecoder">
- <array class="[Ljava.lang.String;" length="15">
-  <void index="0">
-   <array class="java.lang.String" length="15">
+<java version="15" class="java.beans.XMLDecoder">
+ <object class="echecController.Grille" id="Grille0">
+  <void id="StringArrayArray0" property="grille">
+   <void index="0">
+    <void index="0">
+     <string>I</string>
+    </void>
     <void index="1">
-     <string>TN</string>
+     <null/>
     </void>
     <void index="2">
-     <string>CN</string>
+     <null/>
     </void>
     <void index="3">
-     <string>FN</string>
+     <null/>
     </void>
     <void index="4">
-     <string>DN</string>
+     <null/>
     </void>
     <void index="5">
-     <string>RN</string>
+     <null/>
     </void>
     <void index="6">
-     <string>FN</string>
+     <null/>
     </void>
     <void index="7">
-     <string>CN</string>
+     <null/>
     </void>
     <void index="8">
-     <string>TN</string>
+     <null/>
     </void>
-   </array>
-  </void>
-  <void index="1">
-   <array class="java.lang.String" length="15">
+    <void index="9">
+     <string>I</string>
+    </void>
+    <void index="10">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="1">
+    <void index="0">
+     <string>I</string>
+    </void>
     <void index="1">
-     <string>PN</string>
+     <null/>
     </void>
     <void index="2">
-     <string>PN</string>
+     <null/>
     </void>
     <void index="3">
-     <string>PN</string>
+     <null/>
     </void>
     <void index="4">
-     <string>PN</string>
+     <null/>
     </void>
     <void index="5">
-     <string>PN</string>
+     <null/>
     </void>
     <void index="6">
-     <string>PN</string>
+     <null/>
     </void>
     <void index="7">
-     <string>PN</string>
+     <null/>
     </void>
     <void index="8">
-     <string>PN</string>
+     <null/>
     </void>
-   </array>
-  </void>
-  <void index="2">
-   <array class="java.lang.String" length="15"/>
-  </void>
-  <void index="3">
-   <array class="java.lang.String" length="15"/>
-  </void>
-  <void index="4">
-   <array class="java.lang.String" length="15"/>
-  </void>
-  <void index="5">
-   <array class="java.lang.String" length="15">
-    <void index="1">
-     <string>PB</string>
+    <void index="9">
+     <string>I</string>
     </void>
-    <void index="2">
-     <string>PB</string>
+    <void index="10">
+     <string>I</string>
     </void>
-    <void index="3">
-     <string>PB</string>
+   </void>
+   <void index="2">
+    <void index="0">
+     <string>I</string>
     </void>
-    <void index="4">
-     <string>PB</string>
+    <void index="9">
+     <string>I</string>
+    </void>
+    <void index="10">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="3">
+    <void index="0">
+     <string>I</string>
     </void>
     <void index="5">
-     <string>PB</string>
-    </void>
-    <void index="6">
-     <string>PB</string>
-    </void>
-    <void index="7">
-     <string>PB</string>
-    </void>
-    <void index="8">
-     <string>PB</string>
-    </void>
-   </array>
-  </void>
-  <void index="6">
-   <array class="java.lang.String" length="15">
-    <void index="1">
-     <string>TB</string>
-    </void>
-    <void index="2">
      <string>CB</string>
     </void>
-    <void index="3">
-     <string>FB</string>
+    <void index="9">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="4">
+    <void index="0">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="5">
+    <void index="0">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="6">
+    <void index="2">
+     <null/>
+    </void>
+   </void>
+   <void index="7">
+    <void index="0">
+     <string>I</string>
     </void>
     <void index="4">
-     <string>DB</string>
+     <string>I</string>
     </void>
-    <void index="5">
-     <string>RB</string>
+   </void>
+   <void index="8">
+    <void index="1">
+     <string>I</string>
     </void>
-    <void index="6">
-     <string>FB</string>
+    <void index="3">
+     <string>I</string>
     </void>
-    <void index="7">
-     <string>CB</string>
-    </void>
-    <void index="8">
-     <string>TB</string>
-    </void>
-   </array>
+   </void>
   </void>
-  <void index="7">
-   <array class="java.lang.String" length="15"/>
-  </void>
-  <void index="8">
-   <array class="java.lang.String" length="15"/>
-  </void>
-  <void index="9">
-   <array class="java.lang.String" length="15"/>
-  </void>
-  <void index="10">
-   <array class="java.lang.String" length="15"/>
-  </void>
-  <void index="11">
-   <array class="java.lang.String" length="15"/>
-  </void>
-  <void index="12">
-   <array class="java.lang.String" length="15"/>
-  </void>
-  <void index="13">
-   <array class="java.lang.String" length="15"/>
-  </void>
-  <void index="14">
-   <array class="java.lang.String" length="15"/>
-  </void>
- </array>
+ </object>
 </java>
