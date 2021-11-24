@@ -9,7 +9,7 @@ public class pion extends Piece {
 	}
 
     public int pionmoves(String grille[][], int x, int y, int val){
-		if(grille[x+val][y]==null){
+		if(x+val>=0 && grille[x+val][y]==null){
 			grille[x+val][y] = "I";
 			if(x+val<0 || x+val>6){System.out.println("OUT OF RANGE");}
 			else if(grille[x+val][y]==null)
@@ -26,21 +26,20 @@ public class pion extends Piece {
 	}
 
 	public int eatPiece(String grille[][], int val, int x, int y){
-		if (grille[x+val][y+1] != null) {
+		int retour=0;
+		if (x+val>=0 && grille[x+val][y+1] != null) {
 			if (!(grille[x+val][y+1].contains(grille[x][y].substring(1, 2)))){
 				grille[x+val][y+1] = grille[x+val][y+1] + "M";//M pour mangeable
-				if (grille[x+val][y-1] != null&&!(grille[x+val][y-1].contains(grille[x][y].substring(1, 2)))){}
-				else
-					return 1;
+				retour = 1;
 			}
 		}
-		if(grille[x+val][y-1] != null){
+		if(x+val>=0 && grille[x+val][y-1] != null){
 			if (!(grille[x+val][y-1].contains(grille[x][y].substring(1, 2)))){
 				grille[x+val][y-1] = grille[x+val][y-1] + "M";//M pour mangeable
-				return 1;
+				retour = 1;
 			}	
 		}
-		return 0;
+		return retour;
 	}
     @Override
     public String toString() {

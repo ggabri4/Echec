@@ -137,15 +137,12 @@ public class Grille implements Observable{
 
 			int	val = (grille[x][y].substring(1, 2).contains("N"))?1:-1;
 
-			if(x+val<0 || x+val>6)
-				return 0;
-			
 			switch(grille[x][y].substring(0, 1)){
 				case "P":
 						retour = pionB.pionmoves(grille, x, y, val);
 					break;
 				case "C":
-					retour = cavalierB.pionmoves(grille, x, y, val);
+						retour = cavalierB.pionmoves(grille, x, y, val);
 					break;
 			}
 			
