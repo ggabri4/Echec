@@ -3,83 +3,35 @@
  <object class="echecController.Grille" id="Grille0">
   <void id="StringArrayArray0" property="grille">
    <void index="0">
-    <void index="0">
-     <string>I</string>
-    </void>
-    <void index="1">
-     <null/>
-    </void>
     <void index="2">
      <null/>
     </void>
     <void index="3">
      <null/>
-    </void>
-    <void index="4">
-     <null/>
-    </void>
-    <void index="5">
-     <null/>
-    </void>
-    <void index="6">
-     <null/>
-    </void>
-    <void index="7">
-     <null/>
-    </void>
-    <void index="8">
-     <null/>
-    </void>
-    <void index="9">
-     <string>I</string>
-    </void>
-    <void index="10">
-     <string>I</string>
     </void>
    </void>
    <void index="1">
     <void index="0">
      <string>I</string>
     </void>
-    <void index="1">
-     <null/>
-    </void>
-    <void index="2">
-     <null/>
-    </void>
-    <void index="3">
-     <null/>
-    </void>
     <void index="4">
      <null/>
     </void>
-    <void index="5">
-     <null/>
-    </void>
     <void index="6">
-     <null/>
-    </void>
-    <void index="7">
-     <null/>
-    </void>
-    <void index="8">
-     <null/>
-    </void>
-    <void index="9">
-     <string>I</string>
-    </void>
-    <void index="10">
-     <string>I</string>
+     <string>PNM</string>
     </void>
    </void>
    <void index="2">
-    <void index="0">
+    <void index="1">
      <string>I</string>
     </void>
-    <void index="9">
-     <string>I</string>
+    <void index="2">
+     <string>CN</string>
     </void>
-    <void index="10">
+    <void index="4">
+     <string>PN</string>
+    </void>
+    <void index="5">
      <string>I</string>
     </void>
    </void>
@@ -87,41 +39,61 @@
     <void index="0">
      <string>I</string>
     </void>
-    <void index="5">
-     <string>CB</string>
-    </void>
-    <void index="9">
-     <string>I</string>
-    </void>
-   </void>
-   <void index="4">
-    <void index="0">
-     <string>I</string>
-    </void>
-   </void>
-   <void index="5">
-    <void index="0">
-     <string>I</string>
-    </void>
-   </void>
-   <void index="6">
     <void index="2">
-     <null/>
-    </void>
-   </void>
-   <void index="7">
-    <void index="0">
      <string>I</string>
     </void>
     <void index="4">
      <string>I</string>
     </void>
    </void>
-   <void index="8">
+   <void index="4">
+    <void index="3">
+     <string>FN</string>
+    </void>
+   </void>
+   <void index="5">
+    <void index="0">
+     <string>I</string>
+    </void>
+    <void index="2">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="6">
     <void index="1">
      <string>I</string>
     </void>
+   </void>
+   <void index="7">
+    <void index="0">
+     <string>I</string>
+    </void>
+    <void index="2">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="8">
     <void index="3">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="9">
+    <void index="4">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="10">
+    <void index="5">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="11">
+    <void index="6">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="12">
+    <void index="7">
      <string>I</string>
     </void>
    </void>

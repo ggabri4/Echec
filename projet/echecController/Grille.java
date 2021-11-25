@@ -144,6 +144,9 @@ public class Grille implements Observable{
 				case "C":
 						retour = cavalierB.pionmoves(grille, x, y, val);
 					break;
+				case "F":
+						retour = fouB.pionmoves(grille, x, y, val);
+					break;
 			}
 			
 			notifyObserver(moves);
