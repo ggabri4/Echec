@@ -2,13 +2,13 @@ package pions;
 
 import java.awt.Color;
 
-public class cavalier extends Piece {
+public class cavalier extends piece {
     //chaque piece a une couleur et une appelation, "C" pour cavalier etc.. pour leur bonne affichage dans le plateau.
     public cavalier(Color couleurPiece) {
 		super(couleurPiece);
 	}
     
-    public int pionmoves(String grille[][], int x, int y, int val){
+    public int pionmoves(String grille[][], int x, int y){
         int retour = 0;
         
         for(int i=-2; i<3; i++)
@@ -21,11 +21,11 @@ public class cavalier extends Piece {
         }
 		
 		//PARTI SI UN PION EST MANGEABLE -------------------------------
-		eatPiece(grille, val,x,y);
+		eatPiece(grille,x,y);
 		return retour;
 	}
     //j'ai pas changer eat piece par rapport a pion.
-	public int eatPiece(String grille[][], int val, int x, int y){
+	public int eatPiece(String grille[][], int x, int y){
         int retour = 0;
         for(int i=-2; i<3; i++)
             for(int j=-2; j<3; j++){

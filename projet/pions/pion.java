@@ -2,7 +2,7 @@ package pions;
 
 import java.awt.Color;
 
-public class pion extends Piece {
+public class pion extends piece {
 
     public pion(Color couleurPiece) {
 		super(couleurPiece);

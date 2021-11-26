@@ -41,6 +41,7 @@ public class plateau extends JFrame implements Observer{
         addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
                try {
+                   controler.getModel().resetIndicateur();
                    XMLTools.encodeToFile(controler.getModel(), "grille.xml");
                } catch (Exception e1) {
                    e1.printStackTrace();

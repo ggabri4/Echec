@@ -1,37 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="15" class="java.beans.XMLDecoder">
+<java version="15.0.2" class="java.beans.XMLDecoder">
  <object class="echecController.Grille" id="Grille0">
   <void id="StringArrayArray0" property="grille">
    <void index="0">
+    <void index="0">
+     <string>I</string>
+    </void>
+    <void index="1">
+     <string>DB</string>
+    </void>
     <void index="2">
      <null/>
     </void>
     <void index="3">
      <null/>
     </void>
+    <void index="4">
+     <null/>
+    </void>
+    <void index="5">
+     <null/>
+    </void>
+    <void index="6">
+     <null/>
+    </void>
+    <void index="7">
+     <null/>
+    </void>
+    <void index="8">
+     <null/>
+    </void>
+    <void index="9">
+     <string>IMMM</string>
+    </void>
    </void>
    <void index="1">
     <void index="0">
-     <string>I</string>
+     <string>IMMM</string>
+    </void>
+    <void index="1">
+     <null/>
+    </void>
+    <void index="2">
+     <null/>
+    </void>
+    <void index="3">
+     <null/>
     </void>
     <void index="4">
      <null/>
     </void>
+    <void index="5">
+     <null/>
+    </void>
     <void index="6">
-     <string>PNM</string>
+     <null/>
+    </void>
+    <void index="7">
+     <null/>
+    </void>
+    <void index="8">
+     <null/>
+    </void>
+    <void index="9">
+     <string>IMMMM</string>
     </void>
    </void>
    <void index="2">
-    <void index="1">
+    <void index="0">
      <string>I</string>
     </void>
-    <void index="2">
-     <string>CN</string>
-    </void>
-    <void index="4">
-     <string>PN</string>
-    </void>
-    <void index="5">
+    <void index="9">
      <string>I</string>
     </void>
    </void>
@@ -39,61 +78,72 @@
     <void index="0">
      <string>I</string>
     </void>
-    <void index="2">
-     <string>I</string>
-    </void>
-    <void index="4">
+    <void index="10">
      <string>I</string>
     </void>
    </void>
    <void index="4">
-    <void index="3">
-     <string>FN</string>
-    </void>
-   </void>
-   <void index="5">
     <void index="0">
      <string>I</string>
     </void>
-    <void index="2">
+    <void index="9">
+     <string>I</string>
+    </void>
+    <void index="11">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="5">
+    <void index="4">
+     <null/>
+    </void>
+    <void index="5">
+     <null/>
+    </void>
+    <void index="10">
+     <string>I</string>
+    </void>
+    <void index="12">
      <string>I</string>
     </void>
    </void>
    <void index="6">
-    <void index="1">
+    <void index="3">
+     <null/>
+    </void>
+    <void index="4">
+     <null/>
+    </void>
+    <void index="5">
+     <null/>
+    </void>
+    <void index="11">
+     <string>I</string>
+    </void>
+    <void index="13">
      <string>I</string>
     </void>
    </void>
    <void index="7">
-    <void index="0">
-     <string>I</string>
-    </void>
     <void index="2">
      <string>I</string>
     </void>
-   </void>
-   <void index="8">
     <void index="3">
      <string>I</string>
     </void>
-   </void>
-   <void index="9">
     <void index="4">
-     <string>I</string>
+     <string>IMMM</string>
     </void>
-   </void>
-   <void index="10">
     <void index="5">
-     <string>I</string>
+     <string>IM</string>
     </void>
-   </void>
-   <void index="11">
     <void index="6">
+     <string>IM</string>
+    </void>
+    <void index="12">
      <string>I</string>
     </void>
-   </void>
-   <void index="12">
-    <void index="7">
+    <void index="14">
      <string>I</string>
     </void>
    </void>
