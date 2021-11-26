@@ -7,12 +7,15 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.text.html.HTML;
 
 import echecController.echequierController;
 import echecListener.echequierListener;
@@ -77,7 +80,7 @@ public class plateau extends JFrame implements Observer{
            JPanel ptest = new JPanel();
            if(i%9==0) {
         	   if(chiffre != 0) {
-        		   JLabel label = new JLabel(""+chiffre);
+        		   JLabel label = new JLabel("         "+chiffre);
         		   ptest.add(label);
             	   chiffre--;
         	   }
@@ -98,8 +101,53 @@ public class plateau extends JFrame implements Observer{
     public void affichePiece(Graphics g){
         Dimension dim = echecP.getSize();
         this.echecListener.setsize((int)dim.getWidth(), (int)dim.getHeight());
-        //System.out.println(dim.width + "   "+ dim.height); 
-        ImagePiece.ImageLoader();
+        
+        int nbPN = 0;
+        int nbCN = 0;
+        int nbFN = 0;
+        int nbDN = 0;
+        int nbTN = 0;
+        int nbRN = 0;
+
+        int nbPB = 0;
+        int nbCB = 0;
+        int nbFB = 0;
+        int nbDB = 0;
+        int nbTB = 0;
+        int nbRB = 0;
+        for (String piece : controler.getModel().getPiece()) {
+            int val=1;
+            
+            if(piece.substring(1, 2)=="N") val=0;
+            switch(piece.substring(0, 1)){
+                case "T":
+                    if(piece.contains("TN")) nbTN++; else nbTB++;
+					g.drawImage(((piece.contains("TB")) ? ImagePiece.TBM : ImagePiece.TNM), (nbTN*10)-8 , (nbTN*10), this);
+					break;
+				case "C":
+                    if(piece.contains("CN")) nbCN++; else nbCB++;
+					g.drawImage(((piece.contains("CB")) ? ImagePiece.CBM : ImagePiece.CNM),(nbCN*10)-8 , 30+(nbCN*10), this);
+					break;
+				case "F":
+                    if(piece.contains("FN")) nbFN++; else nbFB++;
+					g.drawImage(((piece.contains("FB")) ? ImagePiece.FBM : ImagePiece.FNM),(nbFN*10)-8 , 60+(nbFN*10), this);
+					break;
+				case "D":
+                    if(piece.contains("DN")) nbDN++; else nbDB++;
+					g.drawImage(((piece.contains("DB")) ? ImagePiece.DBM : ImagePiece.DNM),(nbDN*10)-8 , 90+(nbDN*10), this);
+					break;
+				case "R":
+                    if(piece.contains("RN")) nbRN++; else nbRB++;
+					g.drawImage(((piece.contains("RB")) ? ImagePiece.RBM : ImagePiece.RNM),(nbRN*10)-8 , 120+(nbRN*10), this);
+					break;
+				case "P":
+                    if(piece.contains("PN")) nbPN++; else nbPB++;
+					g.drawImage(((piece.contains("PB")) ? ImagePiece.PBM : ImagePiece.PNM), 2 , 140+(nbPN*18), this);
+					break;
+				default:
+            }
+
+        }
         for (int i = 0; i < 7; i++) {
             for (int j = 1; j < 9; j++) {
                 
@@ -153,7 +201,7 @@ public class plateau extends JFrame implements Observer{
         Dimension dime = echecP.getSize();
         return dime;
     }
-    
+
     @Override
     public void update(Observable o, Object arg) {
         repaint();

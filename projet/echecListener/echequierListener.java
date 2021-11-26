@@ -28,7 +28,6 @@ public class echequierListener extends MouseAdapter{
             y1 = MouseY;
             if(controller.PossibleMoves(x1, y1) == 1)
                 FirstClick=false;
-            
         }
         else{
             x2 = MouseX;
@@ -41,9 +40,6 @@ public class echequierListener extends MouseAdapter{
                 y1 = MouseY;
                 controller.PossibleMoves(x2, y2);
             }
-                
-            //System.out.println("grille["+ x1+"]["+ y1+"]");//position click 1
-            //System.out.println("grille["+ x2+"]["+ y2+"]");//position click 2
         }
         //System.out.println(x1 + " " + y1 + " et " + x2 + " " + y2 + " " + FirstClick);
     }

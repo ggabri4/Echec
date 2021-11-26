@@ -13,8 +13,8 @@ public class Grille implements Observable{
 
     //on creé un tableau de case
     private String[][] grille;
-	private  ArrayList<Observer> listObs;
-	private ArrayList<String> moves;
+	private ArrayList<Observer> listObs;
+	private ArrayList<String> pieces;
 	private tour tourN;
 	private cavalier cavalierN;
 	private fou fouN;
@@ -33,7 +33,7 @@ public class Grille implements Observable{
     // on initialise le tableau de case.
     	this.grille  = new String[15][15];	//Grille légérement trop grande pour éviter le out hors range lors du calcul des déplacements
 											//Les partis de la grille pas utilisées ne causeront pas de problèmes 
-		moves = new ArrayList<String>();
+		this.pieces = new ArrayList<String>();
 		listObs = new ArrayList<Observer>();
         //ici on crée les objet correspondant aux piéces et a la position qu'il ont sur l'echequier au début.
 		//Noir :
@@ -96,8 +96,7 @@ public class Grille implements Observable{
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
 				resetIndicateur();
-				moves.add("move("+x1+","+y1+";"+x2+","+y2+")");
-				notifyObserver(moves);
+				notifyObserver(pieces);
 				return 1;
 			}
 			else if(grille[x1][y1].substring(1, 2).contains(grille[x2][y2].substring(1, 2))){
@@ -105,12 +104,12 @@ public class Grille implements Observable{
 				return 3;
 			}
 			else if(grille[x2][y2].contains("M")){
+				pieces.add(grille[x2][y2].substring(0,2));
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
 				resetIndicateur();
-				moves.add("move("+x1+","+y1+";"+x2+","+y2+")");
-                //System.out.println(moves);
-				notifyObserver(moves);
+                System.out.println(pieces);
+				notifyObserver(pieces);
 				return 1;
 			}
 			
@@ -158,7 +157,7 @@ public class Grille implements Observable{
 				break;
 			}
 			
-			notifyObserver(moves);
+			notifyObserver(pieces);
 			//if(pionmoves(x,y,val)==1){
 			//	notifyObserver(null);//afficher les indicateurs de déplacements
 			//	return 1;
@@ -167,7 +166,12 @@ public class Grille implements Observable{
 		}catch(Exception e){throw(e);}
 		return retour;
 	}
-	
+	public void setPiece(ArrayList<String> pieces){
+		this.pieces = pieces;
+	}
+	public ArrayList<String> getPiece(){
+		return pieces;
+	}
 	public void setGrille(String[][] grille) {
 		this.grille = grille;
 	}
@@ -187,9 +191,8 @@ public class Grille implements Observable{
 
 
 	@Override
-	public void notifyObserver(ArrayList<String> moves) {
+	public void notifyObserver(ArrayList<String> pieces) {
 		Iterator<Observer> it = listObs.iterator();
-		
 		while (it.hasNext()) {
 			((plateau) it.next()).update(null, null);
 		}
