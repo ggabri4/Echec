@@ -183,6 +183,10 @@ public class Grille implements Observable{
 		return grille[i][j];
 	}
 
+	public void setCase(int i, int j, String piece){
+		this.grille[i][j]= piece;
+	}
+
 	@Override
 	public void addObserver() {
 		this.listObs.add(new plateau(700,700,new echequierController(this)));

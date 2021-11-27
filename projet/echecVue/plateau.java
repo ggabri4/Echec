@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.Collections;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,6 +34,9 @@ public class plateau extends JFrame implements Observer{
     //on creé le controller pour récuperer la grille.
     private echequierController controler;
     private echequierListener echecListener;
+    //variable pour la fonction en bas a changer de place je pense.
+    private int promo;
+    private String nompiece;
 
 	public plateau(int x, int y, echequierController controler) {
         super("plateau");
@@ -149,7 +156,7 @@ public class plateau extends JFrame implements Observer{
         }
         for (int i = 0; i < 7; i++) {
             for (int j = 1; j < 9; j++) {
-                
+                promo=0;//reset de promo pour l'affichage.
                 // (((dim.width/9)-70)/2) = ((taille de la case)- taille de l'image de la piece)/2 = centre l'image dans la case
                 // Puis idem pour Y ...
                 //Centrage de l'image dans la case.
@@ -184,7 +191,26 @@ public class plateau extends JFrame implements Observer{
 							break;
 
 						case "P":
-							g.drawImage(((nomPiece.contains("PB")) ? ImagePiece.PB : ImagePiece.PN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+                            if((nomPiece.contains("PB") && i==0) || (nomPiece.contains("PN") && i==6)){// fonction qui permet de savoir quand promote 
+                                Promote(i,j,nomPiece.substring(1,2));// lance le jdialog
+                                int pro = promo;//switch selon le résultat pour savoir la piéce a afficher
+                                switch(pro){
+                                    case 1:
+                                        g.drawImage(((nomPiece.contains("PN")) ? ImagePiece.CN : ImagePiece.CB), ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+                                        break;
+                                    case 2:
+                                        g.drawImage(((nomPiece.contains("PN")) ? ImagePiece.TN : ImagePiece.TB), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+                                        break;
+                                    case 3:
+                                        g.drawImage(((nomPiece.contains("PN")) ? ImagePiece.FN : ImagePiece.FB), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+                                        break;
+                                    case 4:
+                                        g.drawImage(((nomPiece.contains("PN")) ? ImagePiece.DN : ImagePiece.DB), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
+                                        break;
+                                    default:
+                                }
+                            }
+							else g.drawImage(((nomPiece.contains("PB")) ? ImagePiece.PB : ImagePiece.PN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
 							break;
                         case "I":
                             g.drawImage(ImagePiece.Indicateur, ((dim.width/9)*j)+(((dim.width/9)-30)/2) , ((dim.height/8)*i)+(((dim.height/8)-30)/2) , this);
@@ -199,6 +225,72 @@ public class plateau extends JFrame implements Observer{
     public Dimension getsize(){
         Dimension dime = echecP.getSize();
         return dime;
+    }
+    //Vraiment pas sur de lemplacement de cette fonction
+    public void Promote(int x, int y, String couleur){
+        JDialog dialog;
+        ActionListener l;
+        dialog = new JDialog(this, "Promotion");
+        dialog.setSize(290, 150);
+        
+        // set location of dialog
+        dialog.setLocation(800, 500);
+        JPanel p = new JPanel();
+        JButton c = new JButton("Cavalier");
+        JButton t = new JButton("Tour");
+        JButton f = new JButton("Fou");
+        JButton d = new JButton("Dame");
+        JLabel j= new JLabel("Quelle piéce voulez vous choisir ?");
+        l = new ActionListener(){//fait des choses selon sur quel bouton on appuie
+            public void actionPerformed(ActionEvent e){
+                if (e.getSource() == c)
+                {  
+                    nompiece = "C"+couleur;//nompiece et promo variable de la class car pas trouvé moyen de les mettres dans cette fonction
+                    dialog.dispose();
+                    controler.getModel().setCase(x, y, nompiece);
+                    promo = 1;
+                    repaint();//sans ça la piéce s'affiche que au prochain coup trouver moyen de s'en passer
+                }
+                if (e.getSource() == t)
+                {
+                    nompiece = "T"+couleur;
+                    dialog.dispose();
+                    controler.getModel().setCase(x, y, nompiece);
+                    promo = 2;
+                    repaint();
+                }
+                if (e.getSource() == f)
+                {
+                    nompiece = "F"+couleur;
+                    dialog.dispose();
+                    controler.getModel().setCase(x, y, nompiece);
+                    promo = 3;
+                    repaint();
+                }
+                if (e.getSource() == d)
+                {
+                    nompiece = "D"+couleur;
+                    dialog.dispose();
+                    controler.getModel().setCase(x, y, nompiece);
+                    promo = 4;
+                    repaint();
+                }
+            }
+        };
+        c.addActionListener(l);
+        t.addActionListener(l);
+        f.addActionListener(l);
+        d.addActionListener(l);
+        p.add(j);
+        p.add(c);
+        p.add(t);
+        p.add(f);
+        p.add(d);
+        dialog.add(p);
+        // set visibility of dialog
+        
+        
+        dialog.setVisible(true);
     }
 
     @Override

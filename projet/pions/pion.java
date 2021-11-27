@@ -14,7 +14,6 @@ public class pion extends piece {
 			if(x+val<0 || x+val>6){System.out.println("OUT OF RANGE");}
 			else if(grille[x+val][y]==null)
 				grille[x+val*1][y] = "I";
-
 			//PARTI SI UN PION EST MANGEABLE -------------------------------
 			eatPiece(grille, val,x,y);
 			return 1;
@@ -41,6 +40,7 @@ public class pion extends piece {
 		}
 		return retour;
 	}
+	
     @Override
     public String toString() {
         return (couleurPiece==Color.white) ? "PB" : "PN";
