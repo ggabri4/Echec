@@ -55,7 +55,7 @@ public class plateau extends JFrame implements Observer{
         this.setTitle("Chess game");
         Image icon = Toolkit.getDefaultToolkit().getImage("./img/chess.png"); 
         this.setIconImage(icon);    // Change l'icone de l'application.
-        this.setMinimumSize(new Dimension(600,600));    //Taille minimum
+        this.setMinimumSize(new Dimension(700,700));    //Taille minimum
         this.setPreferredSize(new Dimension(800,800));  //Taille préférée
         this.setLocationRelativeTo(null);   //Position de la fenetre à l'ouverture.
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // Stop le prog lorsqu'on ferme la fenetre
@@ -115,38 +115,38 @@ public class plateau extends JFrame implements Observer{
         int nbDB = 0;
         int nbTB = 0;
         int nbRB = 0;
+        
         for (String piece : controler.getModel().getPiece()) {
             int val=1;
-            
-            if(piece.substring(1, 2)=="N") val=0;
+            if(piece.contains("N")) val=0;
+            System.out.println(nbPN);
             switch(piece.substring(0, 1)){
+                case "R":
+                    if(piece.contains("RN")) nbRN++; else nbRB++;
+					g.drawImage(((piece.contains("RB")) ? ImagePiece.RBM : ImagePiece.RNM), 2 , ((val==0)?0:dim.height/2)+10, this);//Un seul roi possible, calculs plus simples
+					break;
+                case "D":
+                    if(piece.contains("DN")) nbDN++; else nbDB++;
+					g.drawImage(((piece.contains("DB")) ? ImagePiece.DBM : ImagePiece.DNM), 2 , ((val==0)?0:dim.height/2)+40, this);//Une seule dame possible...
+					break;
                 case "T":
                     if(piece.contains("TN")) nbTN++; else nbTB++;
-					g.drawImage(((piece.contains("TB")) ? ImagePiece.TBM : ImagePiece.TNM), (nbTN*10)-8 , (nbTN*10), this);
+					g.drawImage(((piece.contains("TB")) ? ImagePiece.TBM : ImagePiece.TNM),(((val==0)?nbTN:nbTB)*10)-8 , ((val==0)?0+(nbTN*10):dim.height/2+(nbTB*10))+60, this);
 					break;
 				case "C":
                     if(piece.contains("CN")) nbCN++; else nbCB++;
-					g.drawImage(((piece.contains("CB")) ? ImagePiece.CBM : ImagePiece.CNM),(nbCN*10)-8 , 30+(nbCN*10), this);
+					g.drawImage(((piece.contains("CB")) ? ImagePiece.CBM : ImagePiece.CNM),(((val==0)?nbCN:nbCB)*10)-8 , ((val==0)?0+(nbCN*10):dim.height/2+(nbCB*10))+90, this);
 					break;
 				case "F":
                     if(piece.contains("FN")) nbFN++; else nbFB++;
-					g.drawImage(((piece.contains("FB")) ? ImagePiece.FBM : ImagePiece.FNM),(nbFN*10)-8 , 60+(nbFN*10), this);
-					break;
-				case "D":
-                    if(piece.contains("DN")) nbDN++; else nbDB++;
-					g.drawImage(((piece.contains("DB")) ? ImagePiece.DBM : ImagePiece.DNM),(nbDN*10)-8 , 90+(nbDN*10), this);
-					break;
-				case "R":
-                    if(piece.contains("RN")) nbRN++; else nbRB++;
-					g.drawImage(((piece.contains("RB")) ? ImagePiece.RBM : ImagePiece.RNM),(nbRN*10)-8 , 120+(nbRN*10), this);
+					g.drawImage(((piece.contains("FB")) ? ImagePiece.FBM : ImagePiece.FNM),(((val==0)?nbFN:nbFB)*10)-8 , ((val==0)?0+(nbFN*10):dim.height/2+(nbFB*10))+120, this);
 					break;
 				case "P":
                     if(piece.contains("PN")) nbPN++; else nbPB++;
-					g.drawImage(((piece.contains("PB")) ? ImagePiece.PBM : ImagePiece.PNM), 2 , 140+(nbPN*18), this);
+					g.drawImage(((piece.contains("PB")) ? ImagePiece.PBM : ImagePiece.PNM), 2 , ((val==0)?0+(nbPN*18):dim.height/2+(nbPB*18))+150, this);
 					break;
 				default:
             }
-
         }
         for (int i = 0; i < 7; i++) {
             for (int j = 1; j < 9; j++) {
