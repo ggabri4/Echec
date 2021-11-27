@@ -119,7 +119,6 @@ public class plateau extends JFrame implements Observer{
         for (String piece : controler.getModel().getPiece()) {
             int val=1;
             if(piece.contains("N")) val=0;
-            System.out.println(nbPN);
             switch(piece.substring(0, 1)){
                 case "R":
                     if(piece.contains("RN")) nbRN++; else nbRB++;
