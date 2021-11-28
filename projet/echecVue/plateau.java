@@ -224,7 +224,7 @@ public class plateau extends JFrame implements Observer{
         f.setBackground(Color.white);   f.setName("f");
         d.setBackground(Color.white);   d.setName("d");
         
-        JLabel j= new JLabel("Quelle piéce voulez vous choisir ?");
+        JLabel j= new JLabel("Quelle pièce voulez vous choisir ?");
         
         c.addActionListener(echecListener);
         t.addActionListener(echecListener);
