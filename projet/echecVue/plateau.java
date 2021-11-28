@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -200,13 +201,14 @@ public class plateau extends JFrame implements Observer{
     }
     //Vraiment pas sur de lemplacement de cette fonction
     public void Promote(int x, int y) throws InterruptedException{
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         JDialog dialog;
         echecListener.setPromocase(x,y);
         dialog = new JDialog(this, "Promotion");
         dialog.setSize(300, 250);
         
-        // set location of dialog
-        dialog.setLocation(800, 400);
+        dialog.setLocation((int)(screenSize.getWidth()/2-150), (int)(screenSize.getHeight()/2-125));
+        //On le place bien parce que plus possible de le déplacer après.
         System.out.println(controler.getModel().getCase(x,y));
         Icon cav = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.CN : ImagePiece.CB);
         Icon tour = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.TN : ImagePiece.TB);
@@ -235,6 +237,8 @@ public class plateau extends JFrame implements Observer{
         p.add(d);
         
         dialog.add(p);
+        dialog.setUndecorated(true);
+        dialog.getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY));
         // set visibility of dialog
         dialog.setVisible(true);
     }
