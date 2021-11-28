@@ -1,5 +1,4 @@
 package echecVue;
-import java.beans.PersistenceDelegate;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.FileOutputStream;

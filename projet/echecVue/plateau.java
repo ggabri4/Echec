@@ -5,21 +5,18 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.text.html.HTML;
 
 import echecController.echequierController;
 import echecListener.echequierListener;
@@ -33,10 +30,7 @@ public class plateau extends JFrame implements Observer{
 	private static final long serialVersionUID = 1L;
     //on creé le controller pour récuperer la grille.
     private echequierController controler;
-    private echequierListener echecListener;
-    //variable pour la fonction en bas a changer de place je pense.
-    private int promo;
-    private String nompiece;
+    private echequierListener echecListener;    
 
 	public plateau(int x, int y, echequierController controler) {
         super("plateau");
@@ -112,27 +106,21 @@ public class plateau extends JFrame implements Observer{
         int nbPN = 0;
         int nbCN = 0;
         int nbFN = 0;
-        int nbDN = 0;
         int nbTN = 0;
-        int nbRN = 0;
 
         int nbPB = 0;
         int nbCB = 0;
         int nbFB = 0;
-        int nbDB = 0;
         int nbTB = 0;
-        int nbRB = 0;
         
         for (String piece : controler.getModel().getPiece()) {
             int val=1;
             if(piece.contains("N")) val=0;
             switch(piece.substring(0, 1)){
                 case "R":
-                    if(piece.contains("RN")) nbRN++; else nbRB++;
 					g.drawImage(((piece.contains("RB")) ? ImagePiece.RBM : ImagePiece.RNM), 2 , ((val==0)?0:dim.height/2)+10, this);//Un seul roi possible, calculs plus simples
 					break;
                 case "D":
-                    if(piece.contains("DN")) nbDN++; else nbDB++;
 					g.drawImage(((piece.contains("DB")) ? ImagePiece.DBM : ImagePiece.DNM), 2 , ((val==0)?0:dim.height/2)+40, this);//Une seule dame possible...
 					break;
                 case "T":
@@ -156,7 +144,6 @@ public class plateau extends JFrame implements Observer{
         }
         for (int i = 0; i < 7; i++) {
             for (int j = 1; j < 9; j++) {
-                promo=0;//reset de promo pour l'affichage.
                 // (((dim.width/9)-70)/2) = ((taille de la case)- taille de l'image de la piece)/2 = centre l'image dans la case
                 // Puis idem pour Y ...
                 //Centrage de l'image dans la case.
@@ -191,29 +178,14 @@ public class plateau extends JFrame implements Observer{
 							break;
 
 						case "P":
+                            g.drawImage(((nomPiece.contains("PB")) ? ImagePiece.PB : ImagePiece.PN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
                             if((nomPiece.contains("PB") && i==0) || (nomPiece.contains("PN") && i==6)){// fonction qui permet de savoir quand promote 
-                                Promote(i,j,nomPiece.substring(1,2));// lance le jdialog
-                                int pro = promo;//switch selon le résultat pour savoir la piéce a afficher
-                                switch(pro){
-                                    case 1:
-                                        g.drawImage(((nomPiece.contains("PN")) ? ImagePiece.CN : ImagePiece.CB), ((dim.width/9)*j)+(((dim.width/9)-70)/2), ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
-                                        break;
-                                    case 2:
-                                        g.drawImage(((nomPiece.contains("PN")) ? ImagePiece.TN : ImagePiece.TB), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
-                                        break;
-                                    case 3:
-                                        g.drawImage(((nomPiece.contains("PN")) ? ImagePiece.FN : ImagePiece.FB), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
-                                        break;
-                                    case 4:
-                                        g.drawImage(((nomPiece.contains("PN")) ? ImagePiece.DN : ImagePiece.DB), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
-                                        break;
-                                    default:
-                                }
+                                Promote(i,j);// lance le jdialog
                             }
-							else g.drawImage(((nomPiece.contains("PB")) ? ImagePiece.PB : ImagePiece.PN), ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
 							break;
                         case "I":
                             g.drawImage(ImagePiece.Indicateur, ((dim.width/9)*j)+(((dim.width/9)-30)/2) , ((dim.height/8)*i)+(((dim.height/8)-30)/2) , this);
+                            break;
 						default:
                         }
 					}
@@ -227,69 +199,43 @@ public class plateau extends JFrame implements Observer{
         return dime;
     }
     //Vraiment pas sur de lemplacement de cette fonction
-    public void Promote(int x, int y, String couleur){
+    public void Promote(int x, int y) throws InterruptedException{
         JDialog dialog;
-        ActionListener l;
+        echecListener.setPromocase(x,y);
         dialog = new JDialog(this, "Promotion");
-        dialog.setSize(290, 150);
+        dialog.setSize(300, 250);
         
         // set location of dialog
-        dialog.setLocation(800, 500);
+        dialog.setLocation(800, 400);
+        System.out.println(controler.getModel().getCase(x,y));
+        Icon cav = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.CN : ImagePiece.CB);
+        Icon tour = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.TN : ImagePiece.TB);
+        Icon fou = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.FN : ImagePiece.FB);
+        Icon dame = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.DN : ImagePiece.DB);
         JPanel p = new JPanel();
-        JButton c = new JButton("Cavalier");
-        JButton t = new JButton("Tour");
-        JButton f = new JButton("Fou");
-        JButton d = new JButton("Dame");
+        JButton c = new JButton(cav);   
+        JButton t = new JButton(tour);  
+        JButton f = new JButton(fou);   
+        JButton d = new JButton(dame);  
+        c.setBackground(Color.white);   c.setName("c");
+        t.setBackground(Color.white);   t.setName("t");
+        f.setBackground(Color.white);   f.setName("f");
+        d.setBackground(Color.white);   d.setName("d");
+        
         JLabel j= new JLabel("Quelle piéce voulez vous choisir ?");
-        l = new ActionListener(){//fait des choses selon sur quel bouton on appuie
-            public void actionPerformed(ActionEvent e){
-                if (e.getSource() == c)
-                {  
-                    nompiece = "C"+couleur;//nompiece et promo variable de la class car pas trouvé moyen de les mettres dans cette fonction
-                    dialog.dispose();
-                    controler.getModel().setCase(x, y, nompiece);
-                    promo = 1;
-                    repaint();//sans ça la piéce s'affiche que au prochain coup trouver moyen de s'en passer
-                }
-                if (e.getSource() == t)
-                {
-                    nompiece = "T"+couleur;
-                    dialog.dispose();
-                    controler.getModel().setCase(x, y, nompiece);
-                    promo = 2;
-                    repaint();
-                }
-                if (e.getSource() == f)
-                {
-                    nompiece = "F"+couleur;
-                    dialog.dispose();
-                    controler.getModel().setCase(x, y, nompiece);
-                    promo = 3;
-                    repaint();
-                }
-                if (e.getSource() == d)
-                {
-                    nompiece = "D"+couleur;
-                    dialog.dispose();
-                    controler.getModel().setCase(x, y, nompiece);
-                    promo = 4;
-                    repaint();
-                }
-            }
-        };
-        c.addActionListener(l);
-        t.addActionListener(l);
-        f.addActionListener(l);
-        d.addActionListener(l);
+        
+        c.addActionListener(echecListener);
+        t.addActionListener(echecListener);
+        f.addActionListener(echecListener);
+        d.addActionListener(echecListener);
         p.add(j);
         p.add(c);
         p.add(t);
         p.add(f);
         p.add(d);
+        
         dialog.add(p);
         // set visibility of dialog
-        
-        
         dialog.setVisible(true);
     }
 
