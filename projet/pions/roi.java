@@ -15,21 +15,23 @@ public class roi extends piece {
             for(int j=-1;j<2;j++)
                 if(x+i>=0&&y+j>=0 &&(grille[x+i][y+j]==null)){//vers bas droite
                     grille[x+i][y+j] = "I";
+                    if(List!=null)  List.add((x+i)+";"+(y+j));
                     retour=1;
                 }
 		
 		//PARTI SI UN PION EST MANGEABLE -------------------------------
-		eatPiece(grille,x,y);
+		eatPiece(grille,x,y, List);
 		return retour;
 	}
 
-    public int eatPiece(String grille[][], int x, int y){
+    public int eatPiece(String grille[][], int x, int y, ArrayList<String> List){
         int retour=0;
         int i=1;
         for(i=-1;i<2;i++)
             for(int j=-1;j<2;j++)
                 if(x+i>=0&&y+j>=0 &&grille[x+i][y+j]!=null&&(grille[x+i][y+j]!="I")){//vers bas droite
                     grille[x+i][y+j] = grille[x+i][y+j]+"M";
+                    if(List!=null)  List.add((x+i)+";"+(y+j));
                     retour=1;
                 }
         

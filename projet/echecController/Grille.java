@@ -1,7 +1,12 @@
 package echecController;
 import pions.*;
 import java.awt.Color;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Observer;
 
 import java.util.Iterator;
@@ -89,6 +94,7 @@ public class Grille implements Observable{
 	
 	public int MovePiece(int x1, int y1, int x2, int y2){
 		try{
+			//System.out.println("x1 y1 : "+x1+" "+y1+"  x2, y2 : "+x2+" "+y2);
 			if(grille[x1][y1]==null || grille[x2][y2]==null || x2>6 || y2==0)
 				return 0;
 			else if(grille[x2][y2]=="I")
@@ -121,10 +127,12 @@ public class Grille implements Observable{
 	public void resetIndicateur(){
 		for (int i = 0; i < 7; i++)
 			for (int j = 1; j < 9; j++){
-                if(grille[i][j]=="I")
+                if(grille[i][j]!=null && grille[i][j].contains("I"))
 					grille[i][j]=null;
                 else if(grille[i][j]!=null && grille[i][j].contains("M"))
                     grille[i][j] = grille[i][j].substring(0,2);
+				else if(grille[i][j]!=null && grille[i][j].startsWith("M"))
+					grille[i][j] = null;
             }
 				
 	}
@@ -133,7 +141,8 @@ public class Grille implements Observable{
 		try{
 			if(grille[x][y] == null || grille[x][y] == "I")
 				return 0;
-
+			if(grille[x][y].substring(1, 2).contains("N"))
+				return 0;
 			int	val = (grille[x][y].substring(1, 2).contains("N"))?1:-1;
 
 			switch(grille[x][y].substring(0, 1)){
@@ -167,9 +176,8 @@ public class Grille implements Observable{
 		return retour;
 	}
 
-	public int botmoves(int x, int y, String pion, String coups[][]){
+	public int botmoves(int x, int y, String pion, String coups[][],int compt){
 		int retour=0;
-		int i=0, j=0;
 		ArrayList<String> listeCoups = new ArrayList<String>();
 
 		switch(pion){
@@ -192,17 +200,22 @@ public class Grille implements Observable{
 				retour = roiB.pionmoves(grille, x, y, listeCoups);
 			break;
 		}
-		resetIndicateur();
+
 		for(String element : listeCoups){
-			//System.out.println("depart "+x+";"+y+ "  arrivee "+element + "  valeur "+String.valueOf(valeurcoup(element)));
-			coups[i][0] = x+";"+y;
-			coups[i][1] = element;
-			coups[i][2] = String.valueOf(valeurcoup(element));
+			int i =Integer.parseInt(element.substring(0, 1));
+			int j =Integer.parseInt(element.substring(2, 3));
+			if(grille[i][j]!=null && !grille[i][j].contains("N")){
+				//System.out.println("0. depart "+x+";"+y+ "  arrivee "+element + "  valeur "+String.valueOf(valeurcoup(element)));
+				coups[compt][0] = x+";"+y;
+				coups[compt][1] = element;
+				coups[compt][2] = String.valueOf(valeurcoup(x,y,element));
+				compt++;
+			}
 		}
-		return retour;
+		return compt;
 	}
 
-	public int valeurcoup(String coup){
+	public int valeurcoup(int xd, int yd,String coup){
 		int valeur=0;
 		int x, y;
 		x= Integer.parseInt(coup.substring(0,1));
@@ -211,6 +224,8 @@ public class Grille implements Observable{
 		if(y==2 || y==7)	valeur+=2;
 		if(y==3 || y==6)	valeur+=3;
 		if(y==4 || y==5)	valeur+=4;
+		if(grille[xd][yd].contains("R"))
+			valeur-=500;
 		if(grille[x][y]==null){}
 		else if(grille[x][y].contains("R"))
 			valeur+=999;
@@ -226,6 +241,7 @@ public class Grille implements Observable{
 			valeur+=10;
 		return valeur;
 	}
+
 	public void setPiece(ArrayList<String> pieces){
 		this.pieces = pieces;
 	}

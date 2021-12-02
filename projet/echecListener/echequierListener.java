@@ -34,22 +34,22 @@ public class echequierListener extends MouseAdapter implements ActionListener{
         MouseX= Integer.parseInt(pos.substring(0,1));
         MouseY= Integer.parseInt(pos.substring(2,3));
         if(FirstClick){
-            x1 = MouseX;
-            y1 = MouseY;
+            y1 = MouseX;
+            x1 = MouseY;
             if(controller.PossibleMoves(x1, y1) == 1)
                 FirstClick=false;
         }
         else{
-            x2 = MouseX;
-            y2 = MouseY;
+            y2 = MouseX;
+            x2 = MouseY;
             //System.out.println("2");
             if(controller.MovePiece(x1,y1,x2,y2)==1){
                 FirstClick=true;
                 robot();
             }
             else if(controller.MovePiece(x1,y1,x2,y2)==3){
-                x1 = MouseX;
-                y1 = MouseY;
+                y1 = MouseX;
+                x1 = MouseY;
                 controller.PossibleMoves(x2, y2);
             }
         }
@@ -69,21 +69,47 @@ public class echequierListener extends MouseAdapter implements ActionListener{
     }
     public void robot(){
         String pion;
-        String coups[][] = new String[9][9];
+        String coups[][] = new String[50][3];
+        int compt = 0;
 		for (int i = 0; i < 7; i++)
 			for (int j = 1; j < 9; j++){
                 pion = controller.getModel().getCase(i, j);
                 if(pion != null && pion.contains("N")){
                     pion = pion.substring(0, 1);
-                    controller.botmoves(i, j, pion,coups);
+                    compt = controller.botmoves(i, j, pion,coups,compt);
                 }
             }
-        Arrays.sort(coups, 3, 5);
+        SortArrayOnCol(coups, 2);
+        boolean bool=false;
         for(String element[] : coups){
-            System.out.println("1 depart "+element[0]+ "  arrivee "+element[1] + "  valeur "+element[2]);
+            if(element[0]!=null && bool==false){
+                x1 = Integer.parseInt(element[0].substring(0, 1));
+                x2 = Integer.parseInt(element[1].substring(0, 1));
+                y1 = Integer.parseInt(element[0].substring(2, 3));
+                y2 = Integer.parseInt(element[1].substring(2, 3));
+                System.out.println("depart "+controller.getModel().getCase(x1, y1)+ "  arrivee "+controller.getModel().getCase(x2, y2) + "  valeur "+element[2]);
+                if(controller.MovePiece(x1,y1,x2,y2)==1)
+                    bool=true;
+                //System.out.println("1 depart "+element[0]+ "  arrivee "+element[1] + "  valeur "+element[2]);
+            }
+                
         }
     }
-    
+    public static  void SortArrayOnCol (String[][] array, final int col){
+        Arrays.sort(array, new Comparator<String[]>() {
+
+			@Override
+			public int compare(String[] o1, String[] o2) {
+                //System.out.println(o1[col]+"  "+o2[col]);
+                if(o1[col]!=null&&o2[col]!=null&&Integer.parseInt(o1[col])<Integer.parseInt(o2[col])){
+                    //System.out.println(o1[col].compareTo(o2[col]));
+                    return 1;
+                } 
+                else return -1;
+			}
+            
+        });
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         String nompiece = controller.getModel().getCase(xpromo,ypromo);

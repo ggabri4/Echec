@@ -37,35 +37,39 @@ public class fou extends piece {
         }
 		
 		//PARTI SI UN PION EST MANGEABLE -------------------------------
-		eatPiece(grille,x,y);
+		eatPiece(grille,x,y, List);
 		return retour;
 	}
     //j'ai pas changer eat piece par rapport a pion.
-	public int eatPiece(String grille[][], int x, int y){
+	public int eatPiece(String grille[][], int x, int y, ArrayList<String> List){
         int retour=0;
         int i=1;
         for(i=1;x-i>0&&y-i>0&&i<7&&x-i<14&&y-i<14 &&(grille[x-i][y-i]==null||grille[x-i][y-i]=="I");i++);
         if((x-i<0||y-i<0)||grille[x-i][y-i]=="I");
         else if(grille[x-i][y-i]!=null){
            grille[x-i][y-i] = grille[x-i][y-i]+"M";
+           if(List!=null)  List.add((x-i)+";"+(y-i));
             retour=1; 
         }
         for(i=1;x-i>0&&y+i>0&&i<7&&x-i<14&&y+i<14 &&(grille[x-i][y+i]==null||grille[x-i][y+i]=="I");i++);
         if((x-i<0||y+i<0)||grille[x-i][y+i]=="I");
         else if(grille[x-i][y+i]!=null){
             grille[x-i][y+i] = grille[x-i][y+i]+"M";
+            if(List!=null)  List.add((x-i)+";"+(y+i));
             retour=1;  
         }
         for(i=1;x+i>0&&y-i>0&&i<7&&(grille[x+i][y-i]==null||grille[x+i][y-i]=="I");i++);
         if((x+i<0||y-i<0)||grille[x+i][y-i]=="I");
         else if(grille[x+i][y-i]!=null){
             grille[x+i][y-i] = grille[x+i][y-i]+"M";
+            if(List!=null)  List.add((x+i)+";"+(y-i));
             retour=1;
         }
         for(i=1;x+i>0&&y+i>0&&i<7&&x+i<14&&y+i<14 &&(grille[x+i][y+i]==null||grille[x+i][y+i]=="I");i++);
         if((x+i<0||y+i<0)||grille[x+i][y+i]=="I");
         else if(grille[x+i][y+i]!=null){
             grille[x+i][y+i] = grille[x+i][y+i]+"M";
+            if(List!=null)  List.add((x+i)+";"+(y+i));
             retour=1;
         }
 		

@@ -23,11 +23,11 @@ public class cavalier extends piece {
             }
 		
 		//PARTI SI UN PION EST MANGEABLE -------------------------------
-		eatPiece(grille,x,y);
+		eatPiece(grille,x,y,List);
 		return retour;
 	}
     //j'ai pas changer eat piece par rapport a pion.
-	public int eatPiece(String grille[][], int x, int y){
+	public int eatPiece(String grille[][], int x, int y, ArrayList<String> List){
         int retour = 0;
         for(int i=-2; i<3; i++)
             for(int j=-2; j<3; j++){
@@ -35,6 +35,7 @@ public class cavalier extends piece {
                     if(x+i>=0&&y+j>=0&& grille[x+i][y+j]!=null && grille[x+i][y+j]!="I"){
                         if(!(grille[x+i][y+j].contains(grille[x][y].substring(1, 2)))){
                             grille[x+i][y+j] = grille[x+i][y+j]+"M";
+                            if(List!=null)  List.add((x+i)+";"+(y+j));
                             retour=1;
                         }
                     }

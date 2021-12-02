@@ -14,12 +14,12 @@ public class echequierController {
 		return Model;
 	}
 	public int PossibleMoves(int x, int y){
-		return Model.PossibleMoves(y,x);//On inverse les valeurs pour la grille
+		return Model.PossibleMoves(x,y);//On inverse les valeurs pour la grille
 	}
-	public int botmoves(int x, int y, String pion, String coups[][]){
-		return Model.botmoves(x,y,pion, coups);
+	public int botmoves(int x, int y, String pion, String coups[][],int compt){
+		return Model.botmoves(x,y,pion, coups,compt);
 	}
 	public int MovePiece(int x1, int y1, int x2, int y2){
-		return Model.MovePiece(y1, x1, y2, x2);//On inverse les valeurs pour la grille
+		return Model.MovePiece(x1, y1, x2, y2);//On inverse les valeurs pour la grille
 	}
 }
