@@ -138,22 +138,22 @@ public class Grille implements Observable{
 
 			switch(grille[x][y].substring(0, 1)){
 				case "P":
-						retour = pionB.pionmoves(grille, x, y, val);
+						retour = pionB.pionmoves(grille, x, y, val, null);
 					break;
 				case "C":
-						retour = cavalierB.pionmoves(grille, x, y);
+						retour = cavalierB.pionmoves(grille, x, y, null);
 					break;
 				case "F":
-						retour = fouB.pionmoves(grille, x, y);
+						retour = fouB.pionmoves(grille, x, y, null);
 					break;
 				case "T":
-					retour = tourB.pionmoves(grille, x, y);
+					retour = tourB.pionmoves(grille, x, y, null);
 				break;
 				case "D":
-					retour = reineB.pionmoves(grille, x, y);
+					retour = reineB.pionmoves(grille, x, y, null);
 				break;
 				case "R":
-					retour = roiB.pionmoves(grille, x, y);
+					retour = roiB.pionmoves(grille, x, y, null);
 				break;
 			}
 			
@@ -165,6 +165,66 @@ public class Grille implements Observable{
 	
 		}catch(Exception e){throw(e);}
 		return retour;
+	}
+
+	public int botmoves(int x, int y, String pion, String coups[][]){
+		int retour=0;
+		int i=0, j=0;
+		ArrayList<String> listeCoups = new ArrayList<String>();
+
+		switch(pion){
+			case "P":
+				retour = pionB.pionmoves(grille, x, y, 1, listeCoups);	
+				break;
+			case "C":
+				retour = cavalierB.pionmoves(grille, x, y, listeCoups);
+				break;
+			case "F":
+				retour = fouB.pionmoves(grille, x, y, listeCoups);
+				break;
+			case "T":
+				retour = tourB.pionmoves(grille, x, y, listeCoups);
+			break;
+			case "D":
+				retour = reineB.pionmoves(grille, x, y, listeCoups);
+			break;
+			case "R":
+				retour = roiB.pionmoves(grille, x, y, listeCoups);
+			break;
+		}
+		resetIndicateur();
+		for(String element : listeCoups){
+			//System.out.println("depart "+x+";"+y+ "  arrivee "+element + "  valeur "+String.valueOf(valeurcoup(element)));
+			coups[i][0] = x+";"+y;
+			coups[i][1] = element;
+			coups[i][2] = String.valueOf(valeurcoup(element));
+		}
+		return retour;
+	}
+
+	public int valeurcoup(String coup){
+		int valeur=0;
+		int x, y;
+		x= Integer.parseInt(coup.substring(0,1));
+		y= Integer.parseInt(coup.substring(2,3));
+		if(y==1 || y==8)	valeur+=1;
+		if(y==2 || y==7)	valeur+=2;
+		if(y==3 || y==6)	valeur+=3;
+		if(y==4 || y==5)	valeur+=4;
+		if(grille[x][y]==null){}
+		else if(grille[x][y].contains("R"))
+			valeur+=999;
+		else if(grille[x][y].contains("D"))
+			valeur+=90;
+		else if(grille[x][y].contains("T"))
+			valeur+=50;
+		else if(grille[x][y].contains("F"))
+			valeur+=30;
+		else if(grille[x][y].contains("C"))
+			valeur+=30;
+		else if(grille[x][y].contains("P"))
+			valeur+=10;
+		return valeur;
 	}
 	public void setPiece(ArrayList<String> pieces){
 		this.pieces = pieces;

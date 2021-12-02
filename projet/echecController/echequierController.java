@@ -16,6 +16,9 @@ public class echequierController {
 	public int PossibleMoves(int x, int y){
 		return Model.PossibleMoves(y,x);//On inverse les valeurs pour la grille
 	}
+	public int botmoves(int x, int y, String pion, String coups[][]){
+		return Model.botmoves(x,y,pion, coups);
+	}
 	public int MovePiece(int x1, int y1, int x2, int y2){
 		return Model.MovePiece(y1, x1, y2, x2);//On inverse les valeurs pour la grille
 	}

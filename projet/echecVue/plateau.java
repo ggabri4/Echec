@@ -22,8 +22,6 @@ import javax.swing.JPanel;
 import echecController.echequierController;
 import echecListener.echequierListener;
 
-
-
 public class plateau extends JFrame implements Observer{
  
     private int x,y;

@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="17.0.1" class="java.beans.XMLDecoder">
+<java version="15.0.2" class="java.beans.XMLDecoder">
  <object class="echecController.Grille" id="Grille0">
   <void id="StringArrayArray0" property="grille">
    <void index="0">
-    <void index="6">
-     <string>TB</string>
+    <void index="0">
+     <string>I</string>
+    </void>
+    <void index="9">
+     <string>I</string>
+    </void>
+    <void index="10">
+     <string>I</string>
+    </void>
+    <void index="11">
+     <string>I</string>
+    </void>
+    <void index="12">
+     <string>I</string>
+    </void>
+    <void index="13">
+     <string>I</string>
+    </void>
+    <void index="14">
+     <string>nullM</string>
     </void>
    </void>
-   <void index="1">
-    <void index="5">
-     <null/>
+   <void index="4">
+    <void index="3">
+     <string>PB</string>
     </void>
    </void>
    <void index="5">
-    <void index="4">
+    <void index="3">
      <null/>
     </void>
-   </void>
-  </void>
-  <void property="piece">
-   <void method="add">
-    <string>PN</string>
-   </void>
-   <void method="add">
-    <string>FN</string>
    </void>
   </void>
  </object>

@@ -1,13 +1,15 @@
 package echecListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 import java.awt.Window;
+import java.util.Comparator;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import echecController.echequierController;
 
 public class echequierListener extends MouseAdapter implements ActionListener{
@@ -41,8 +43,10 @@ public class echequierListener extends MouseAdapter implements ActionListener{
             x2 = MouseX;
             y2 = MouseY;
             //System.out.println("2");
-            if(controller.MovePiece(x1,y1,x2,y2)==1)
+            if(controller.MovePiece(x1,y1,x2,y2)==1){
                 FirstClick=true;
+                robot();
+            }
             else if(controller.MovePiece(x1,y1,x2,y2)==3){
                 x1 = MouseX;
                 y1 = MouseY;
@@ -63,7 +67,23 @@ public class echequierListener extends MouseAdapter implements ActionListener{
         xpromo = x;
         ypromo = y;
     }
-
+    public void robot(){
+        String pion;
+        String coups[][] = new String[9][9];
+		for (int i = 0; i < 7; i++)
+			for (int j = 1; j < 9; j++){
+                pion = controller.getModel().getCase(i, j);
+                if(pion != null && pion.contains("N")){
+                    pion = pion.substring(0, 1);
+                    controller.botmoves(i, j, pion,coups);
+                }
+            }
+        Arrays.sort(coups, 3, 5);
+        for(String element[] : coups){
+            System.out.println("1 depart "+element[0]+ "  arrivee "+element[1] + "  valeur "+element[2]);
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         String nompiece = controller.getModel().getCase(xpromo,ypromo);

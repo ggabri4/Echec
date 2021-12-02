@@ -1,6 +1,7 @@
 package pions;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class reine extends piece {
 
@@ -8,7 +9,7 @@ public class reine extends piece {
 		super(couleurPiece);
 	}
 
-    public int pionmoves(String grille[][], int x, int y){
+    public int pionmoves(String grille[][], int x, int y, ArrayList<String> List){
         int retour=0;
         int i=1;
         while(x-i>=0&&y-i>=0&&i<7 &&(grille[x-i][y-i]==null||i==0)){//vers bas droite

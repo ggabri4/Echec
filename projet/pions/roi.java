@@ -1,13 +1,14 @@
 package pions;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class roi extends piece {
 
     public roi(Color couleurPiece) {
 		super(couleurPiece);
 	}
-    public int pionmoves(String grille[][], int x, int y){
+    public int pionmoves(String grille[][], int x, int y, ArrayList<String> List){
         int retour=0;
         int i=1;
         for(i=-1;i<2;i++)

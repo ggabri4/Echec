@@ -11,7 +11,6 @@ public Popup(){
 }
 
 public void affiche() {
-        
 
         result = JOptionPane.showConfirmDialog(this, "Voulez-vous reprendre la dernière partie ?");
         //

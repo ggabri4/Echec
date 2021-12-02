@@ -1,6 +1,7 @@
 package pions;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class pion extends piece {
 
@@ -8,20 +9,15 @@ public class pion extends piece {
 		super(couleurPiece);
 	}
 
-    public int pionmoves(String grille[][], int x, int y, int val){
+    public int pionmoves(String grille[][], int x, int y, int val, ArrayList<String> List){
+		int retour=0;
 		if(x+val>=0 && grille[x+val][y]==null){
 			grille[x+val][y] = "I";
-			if(x+val<0 || x+val>6){System.out.println("OUT OF RANGE");}
-			else if(grille[x+val][y]==null)
-				grille[x+val*1][y] = "I";
-			//PARTI SI UN PION EST MANGEABLE -------------------------------
-			eatPiece(grille, val,x,y);
-			return 1;
+			retour = 1;
+			if(List!=null)  List.add((x+val)+";"+y);
 		}
-		else if(eatPiece(grille, val,x,y)==1){
-			return 1;
-		}
-		return 0;
+		eatPiece(grille, val,x,y);
+		return retour;
 	}
 
 	public int eatPiece(String grille[][], int val, int x, int y){

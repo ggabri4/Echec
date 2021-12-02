@@ -1,13 +1,14 @@
 package pions;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class tour extends piece {
 
     public tour(Color couleurPiece) {
 		super(couleurPiece);
 	}
-    public int pionmoves(String grille[][], int x, int y){
+    public int pionmoves(String grille[][], int x, int y, ArrayList<String> List){
         int retour=0;
         int i=1;
         while(x-i>=0&&y>=0&&i<8 &&(grille[x-i][y]==null||i==0)){//vers bas droite
