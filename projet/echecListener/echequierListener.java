@@ -81,6 +81,7 @@ public class echequierListener extends MouseAdapter implements ActionListener{
             }
         SortArrayOnCol(coups, 2);
         boolean bool=false;
+        int test = 0;
         for(String element[] : coups){
             if(element[0]!=null && bool==false){
                 String coord[] = new String[2];
@@ -94,10 +95,12 @@ public class echequierListener extends MouseAdapter implements ActionListener{
                 //x2 = Integer.parseInt(element[1].substring(0, 1));
                 //y1 = Integer.parseInt(element[0].substring(2, 3));
                 //y2 = Integer.parseInt(element[1].substring(2, 3));
-                System.out.println("depart "+controller.getModel().getCase(x1, y1)+ "  arrivee "+controller.getModel().getCase(x2, y2) + "  valeur "+element[2]);
-                if(controller.MovePiece(x1,y1,x2,y2)==1){
+                System.out.println("depart "+controller.getModel().getCase(x1, y1)+ "  arrivee "+controller.getModel().getCase(x2, y2));
+                
+                test = controller.MovePiece(x1,y1,x2,y2);
+                if(test == 1){
                     bool=true;
-                    System.out.println("1 depart "+element[0]+ "  arrivee "+element[1] + "  valeur "+controller.getModel().getCase(x2,y2));
+                    //System.out.println("1 depart "+element[0]+ "  arrivee "+element[1] + "  valeur "+controller.getModel().getCase(x2,y2));
                 }
                     
                 

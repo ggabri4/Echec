@@ -114,7 +114,7 @@ public class Grille implements Observable{
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
 				resetIndicateur();
-                System.out.println(pieces);
+                //System.out.println(pieces);
 				notifyObserver(pieces);
 				return 1;
 			}
@@ -212,9 +212,9 @@ public class Grille implements Observable{
 			//int i =Integer.parseInt(element.substring(0, 1));
 			//int j =Integer.parseInt(element.substring(2, 3));
 
-			System.out.println("0. depart "+i+";"+j+ "  arrivee "+element);
+			
 			if(grille[i][j]!=null && !grille[i][j].contains("N")){
-				
+				//System.out.println(" depart "+i+";"+j+ "  arrivee "+element);
 				coups[compt][0] = x+";"+y;
 				coups[compt][1] = element;
 				coups[compt][2] = String.valueOf(valeurcoup(x,y,element));
