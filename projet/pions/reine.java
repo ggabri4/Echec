@@ -43,6 +43,7 @@ public class reine extends piece {
             retour=1;
             i++;
         }i=1;
+        
         while(x>=0&&y+i>=0&&i<8&&y+i<14&&(grille[x][y+i]==null||i==0)){//vers bas gauche
             grille[x][y+i] = "I";
             if(List!=null)  List.add((x)+";"+(y+i));

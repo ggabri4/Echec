@@ -23,6 +23,7 @@ public class jeu {
 		System.out.println(Popup.getResult());
 		echequierController controler=new echequierController(grille);
 		System.out.println("Lancement de l'application : " + controler);
+		controler.init();//Init finale avec tous le reste du programme prêt.
 	}
 
 }

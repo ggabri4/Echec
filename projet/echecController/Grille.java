@@ -130,7 +130,10 @@ public class Grille implements Observable{
                 if(grille[i][j]!=null && grille[i][j].contains("I"))
 					grille[i][j]=null;
                 else if(grille[i][j]!=null && grille[i][j].contains("M"))
-                    grille[i][j] = grille[i][j].substring(0,2);
+					if(grille[i][j]!=null && grille[i][j].contains("nu"))//cas d'erreur de reset où case = "nullM" par ex.
+						grille[i][j]=null;	
+					else
+						grille[i][j] = grille[i][j].substring(0,2);
 				else if(grille[i][j]!=null && grille[i][j].startsWith("M"))
 					grille[i][j] = null;
             }
@@ -202,10 +205,16 @@ public class Grille implements Observable{
 		}
 
 		for(String element : listeCoups){
-			int i =Integer.parseInt(element.substring(0, 1));
-			int j =Integer.parseInt(element.substring(2, 3));
+			String coord[] = new String[2];
+			coord = element.split(";");
+			int i =Integer.parseInt(coord[0]);
+			int j =Integer.parseInt(coord[1]);
+			//int i =Integer.parseInt(element.substring(0, 1));
+			//int j =Integer.parseInt(element.substring(2, 3));
+
+			System.out.println("0. depart "+i+";"+j+ "  arrivee "+element);
 			if(grille[i][j]!=null && !grille[i][j].contains("N")){
-				//System.out.println("0. depart "+x+";"+y+ "  arrivee "+element + "  valeur "+String.valueOf(valeurcoup(element)));
+				
 				coups[compt][0] = x+";"+y;
 				coups[compt][1] = element;
 				coups[compt][2] = String.valueOf(valeurcoup(x,y,element));
@@ -217,9 +226,10 @@ public class Grille implements Observable{
 
 	public int valeurcoup(int xd, int yd,String coup){
 		int valeur=0;
-		int x, y;
-		x= Integer.parseInt(coup.substring(0,1));
-		y= Integer.parseInt(coup.substring(2,3));
+		String coord[] = new String[2];
+		coord = coup.split(";");
+		int x =Integer.parseInt(coord[0]);
+		int y =Integer.parseInt(coord[1]);
 		if(y==1 || y==8)	valeur+=1;
 		if(y==2 || y==7)	valeur+=2;
 		if(y==3 || y==6)	valeur+=3;
@@ -262,6 +272,10 @@ public class Grille implements Observable{
 	public void setCase(int i, int j, String piece){
 		this.grille[i][j]= piece;
 		notifyObserver(null);
+	}
+	public int init(){
+		notifyObserver(null);
+		return 1;
 	}
 	
 	@Override

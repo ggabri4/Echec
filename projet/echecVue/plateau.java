@@ -65,6 +65,7 @@ public class plateau extends JFrame implements Observer{
         
         afficheCase();
         this.setContentPane(echecP);
+        System.out.println("x");
         setVisible(true);
         //On peut rendre la frame visible
     }
@@ -202,7 +203,7 @@ public class plateau extends JFrame implements Observer{
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         JDialog dialog;
         echecListener.setPromocase(x,y);
-        dialog = new JDialog(this, "Promotion",true);
+        dialog = new JDialog(this, "Promotion");
         dialog.setSize(300, 250);
         
         dialog.setLocation((int)(screenSize.getWidth()/2-150), (int)(screenSize.getHeight()/2-125));

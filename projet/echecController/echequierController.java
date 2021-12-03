@@ -22,4 +22,7 @@ public class echequierController {
 	public int MovePiece(int x1, int y1, int x2, int y2){
 		return Model.MovePiece(x1, y1, x2, y2);//On inverse les valeurs pour la grille
 	}
+	public int init(){
+		return Model.init();
+	}
 }
