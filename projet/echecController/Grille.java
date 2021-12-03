@@ -1,12 +1,7 @@
 package echecController;
 import pions.*;
 import java.awt.Color;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Observer;
 
 import java.util.Iterator;
@@ -180,40 +175,37 @@ public class Grille implements Observable{
 	}
 
 	public int botmoves(int x, int y, String pion, String coups[][],int compt){
-		int retour=0;
 		ArrayList<String> listeCoups = new ArrayList<String>();
 
 		switch(pion){
 			case "P":
-				retour = pionB.pionmoves(grille, x, y, 1, listeCoups);	
+				pionB.pionmoves(grille, x, y, 1, listeCoups);	
 				break;
 			case "C":
-				retour = cavalierB.pionmoves(grille, x, y, listeCoups);
+				cavalierB.pionmoves(grille, x, y, listeCoups);
 				break;
 			case "F":
-				retour = fouB.pionmoves(grille, x, y, listeCoups);
+				fouB.pionmoves(grille, x, y, listeCoups);
 				break;
 			case "T":
-				retour = tourB.pionmoves(grille, x, y, listeCoups);
+				tourB.pionmoves(grille, x, y, listeCoups);
 			break;
 			case "D":
-				retour = reineB.pionmoves(grille, x, y, listeCoups);
+				reineB.pionmoves(grille, x, y, listeCoups);
 			break;
 			case "R":
-				retour = roiB.pionmoves(grille, x, y, listeCoups);
+				roiB.pionmoves(grille, x, y, listeCoups);
 			break;
 		}
-
+		notifyObserver(null);
+		
 		for(String element : listeCoups){
 			String coord[] = new String[2];
 			coord = element.split(";");
 			int i =Integer.parseInt(coord[0]);
 			int j =Integer.parseInt(coord[1]);
-			//int i =Integer.parseInt(element.substring(0, 1));
-			//int j =Integer.parseInt(element.substring(2, 3));
 
-			
-			if(grille[i][j]!=null && !grille[i][j].contains("N")){
+			if(grille[i][j]!=null && !grille[i][j].contains("N") && i<7 && j <8){
 				//System.out.println(" depart "+i+";"+j+ "  arrivee "+element);
 				coups[compt][0] = x+";"+y;
 				coups[compt][1] = element;

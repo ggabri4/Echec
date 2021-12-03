@@ -13,6 +13,10 @@ public class echecPanel extends JPanel{
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        monPlateau.affichePiece(g);
+        try {
+            monPlateau.affichePiece(g);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

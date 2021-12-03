@@ -37,7 +37,8 @@ public class tour extends piece {
         }
 		
 		//PARTI SI UN PION EST MANGEABLE -------------------------------
-		eatPiece(grille,x,y,List);
+		int eat = eatPiece(grille, x, y, List);
+		if(retour==0) retour = eat;
 		return retour;
 	}
 
@@ -47,34 +48,32 @@ public class tour extends piece {
 
         while(x-i>=0&&i<8 &&(i==0||grille[x-i][y]=="I")){//vers haut
             i++;
-            if(x-i>=0&&grille[x-i][y]!="I"){
-                grille[x-i][y] = grille[x-i][y]+"M";
+            if(x-i>=0&&grille[x-i][y]!=null&&grille[x-i][y]!="I"){
+                grille[x-i][y] = grille[x-i][y].substring(0, 2)+"M";
                 if(List!=null)  List.add((x-i)+";"+(y));
                 retour=1;
             }
         }i=0;
         while(y+i>=0&&i<8&&y+i<14&&(i==0||grille[x][y+i]=="I")){//vers droite
             i++;
-            if(y+i>=0&&grille[x][y+i]!="I"){
-                grille[x][y+i] = grille[x][y+i]+"M";
+            if(y+i>=0&&grille[x][y+i]!=null&&grille[x][y+i]!="I"){
+                grille[x][y+i] = grille[x][y+i].substring(0, 2)+"M";
                 if(List!=null)  List.add((x)+";"+(y+i));
                 retour=1;  
             }
         }i=0;
         while(x+i>=0&&i<8 &&(i==0||grille[x+i][y]=="I")){//vers gauche
             i++;
-            if(x+i>=0&&grille[x+i][y]!="I"){
-                grille[x+i][y] = grille[x+i][y]+"M";
+            if(x+i>=0&&grille[x+i][y]!=null&&grille[x+i][y]!="I"){
+                grille[x+i][y] = grille[x+i][y].substring(0, 2)+"M";
                 if(List!=null)  List.add((x+i)+";"+(y));
                 retour=1;
             }
         }i=0;
-        //System.out.println(grille[x+i][y]+"  =  "+(grille[x+i][y]==null||grille[x][y-i]=="I"));
         while(y-i>=0&&i<8 &&(grille[x][y-i]=="I"||i==0)){//vers gauche 
-            //System.out.println(""+grille[x][y-i]);
             i++;
-            if(y-i>=0&&grille[x][y-i]!="I"){
-                grille[x][y-i] = grille[x][y-i]+"M";
+            if(y-i>=0&&grille[x][y-i]!=null&&grille[x][y-i]!="I"){
+                grille[x][y-i] = grille[x][y-i].substring(0, 2)+"M";
                 retour=1;
             }
         }

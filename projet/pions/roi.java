@@ -20,7 +20,8 @@ public class roi extends piece {
                 }
 		
 		//PARTI SI UN PION EST MANGEABLE -------------------------------
-		eatPiece(grille,x,y, List);
+		int eat = eatPiece(grille, x, y, List);
+		if(retour==0) retour = eat;
 		return retour;
 	}
 
@@ -30,7 +31,7 @@ public class roi extends piece {
         for(i=-1;i<2;i++)
             for(int j=-1;j<2;j++)
                 if(x+i>=0&&y+j>=0 &&grille[x+i][y+j]!=null&&(grille[x+i][y+j]!="I")){//vers bas droite
-                    grille[x+i][y+j] = grille[x+i][y+j]+"M";
+                    grille[x+i][y+j] = grille[x+i][y+j].substring(0, 2)+"M";
                     if(List!=null)  List.add((x+i)+";"+(y+j));
                     retour=1;
                 }

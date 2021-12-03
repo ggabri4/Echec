@@ -25,4 +25,5 @@ public class echequierController {
 	public int init(){
 		return Model.init();
 	}
+	
 }

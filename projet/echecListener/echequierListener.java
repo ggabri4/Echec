@@ -33,6 +33,7 @@ public class echequierListener extends MouseAdapter implements ActionListener{
         String pos = new String(calculcase(MouseX, MouseY));
         MouseX= Integer.parseInt(pos.substring(0,1));
         MouseY= Integer.parseInt(pos.substring(2,3));
+        //System.out.println(FirstClick);
         if(FirstClick){
             y1 = MouseX;
             x1 = MouseY;
@@ -42,7 +43,6 @@ public class echequierListener extends MouseAdapter implements ActionListener{
         else{
             y2 = MouseX;
             x2 = MouseY;
-            //System.out.println("2");
             if(controller.MovePiece(x1,y1,x2,y2)==1){
                 FirstClick=true;
                 robot();
@@ -66,6 +66,9 @@ public class echequierListener extends MouseAdapter implements ActionListener{
     public void setPromocase(int x, int y){
         xpromo = x;
         ypromo = y;
+    }
+    public void promobot(int xpromo, int ypromo){
+        controller.getModel().setCase(xpromo, ypromo, "DN");
     }
     public void robot(){
         String pion;
@@ -91,10 +94,7 @@ public class echequierListener extends MouseAdapter implements ActionListener{
                 coord = element[1].split(";");
                 int x2 =Integer.parseInt(coord[0]);
                 int y2 =Integer.parseInt(coord[1]);
-                //x1 = Integer.parseInt(element[0].substring(0, 1));
-                //x2 = Integer.parseInt(element[1].substring(0, 1));
-                //y1 = Integer.parseInt(element[0].substring(2, 3));
-                //y2 = Integer.parseInt(element[1].substring(2, 3));
+                
                 System.out.println("depart "+controller.getModel().getCase(x1, y1)+ "  arrivee "+controller.getModel().getCase(x2, y2));
                 
                 test = controller.MovePiece(x1,y1,x2,y2);
@@ -130,7 +130,7 @@ public class echequierListener extends MouseAdapter implements ActionListener{
         Window window = SwingUtilities.windowForComponent(button);
 
         String buttonName = button.toString().substring(20, 21);
-        //System.out.println(bouton.substring(20, 21) + "  "+ nompiece);
+
         if (buttonName.contains("c"))
         {  
             nompiece = "C" + nompiece.substring(1,2);//nompiece et promo variable de la class car pas trouvé moyen de les mettres dans cette fonction

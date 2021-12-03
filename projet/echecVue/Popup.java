@@ -24,8 +24,7 @@ public void affiche() {
 
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.dispose();
-        
+        this.dispose(); 
     }
     
     public static int getResult(){

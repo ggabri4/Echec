@@ -17,8 +17,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import echecController.Timer2;
 import echecController.echequierController;
 import echecListener.echequierListener;
 
@@ -30,6 +32,8 @@ public class plateau extends JFrame implements Observer{
     //on creé le controller pour récuperer la grille.
     private echequierController controler;
     private echequierListener echecListener;    
+    Timer2 t;
+		
 
 	public plateau(int x, int y, echequierController controler) {
         super("plateau");
@@ -37,6 +41,8 @@ public class plateau extends JFrame implements Observer{
         this.x=x;
         this.y=y;
         this.controler=controler;// on récupére le controller passé en paramètre dans jeu.java pour la grille
+        t = new Timer2(this);
+        t.start();
         afficheinterface();
     }
 
@@ -65,7 +71,6 @@ public class plateau extends JFrame implements Observer{
         
         afficheCase();
         this.setContentPane(echecP);
-        System.out.println("x");
         setVisible(true);
         //On peut rendre la frame visible
     }
@@ -99,7 +104,7 @@ public class plateau extends JFrame implements Observer{
         }
 	}
     
-    public void affichePiece(Graphics g){
+    public void affichePiece(Graphics g) throws InterruptedException{
         Dimension dim = echecP.getSize();
         this.echecListener.setsize((int)dim.getWidth(), (int)dim.getHeight());
         
@@ -119,6 +124,7 @@ public class plateau extends JFrame implements Observer{
             switch(piece.substring(0, 1)){
                 case "R":
 					g.drawImage(((piece.contains("RB")) ? ImagePiece.RBM : ImagePiece.RNM), 2 , ((val==0)?0:dim.height/2)+10, this);//Un seul roi possible, calculs plus simples
+                    Perdu(piece.substring(1, 2));//Donne B ou R
 					break;
                 case "D":
 					g.drawImage(((piece.contains("DB")) ? ImagePiece.DBM : ImagePiece.DNM), 2 , ((val==0)?0:dim.height/2)+40, this);//Une seule dame possible...
@@ -147,7 +153,6 @@ public class plateau extends JFrame implements Observer{
                 // (((dim.width/9)-70)/2) = ((taille de la case)- taille de l'image de la piece)/2 = centre l'image dans la case
                 // Puis idem pour Y ...
                 //Centrage de l'image dans la case.
-
                 try{ //on vérifie si la case de la grille est pas vide.
 					if(controler.getModel().getCase(i,j) !=null ) {
                         //si elle est pas vide on recupére la piece présente
@@ -200,46 +205,61 @@ public class plateau extends JFrame implements Observer{
     }
     //Vraiment pas sur de lemplacement de cette fonction
     public void Promote(int x, int y) throws InterruptedException{
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        JDialog dialog;
-        echecListener.setPromocase(x,y);
-        dialog = new JDialog(this, "Promotion");
-        dialog.setSize(300, 250);
+        if(controler.getModel().getCase(x,y).contains("N")) echecListener.promobot(x,y);
+        else{
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            JDialog dialog;
+            echecListener.setPromocase(x,y);
+            dialog = new JDialog(this, "Promotion");
+            dialog.setSize(300, 250);
+            
+            dialog.setLocation((int)(screenSize.getWidth()/2-150), (int)(screenSize.getHeight()/2-125));
+            //On le place bien parce que plus possible de le déplacer après.
+            Icon cav = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.CN : ImagePiece.CB);
+            Icon tour = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.TN : ImagePiece.TB);
+            Icon fou = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.FN : ImagePiece.FB);
+            Icon dame = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.DN : ImagePiece.DB);
+            JPanel p = new JPanel();
+            JButton c = new JButton(cav);   
+            JButton t = new JButton(tour);  
+            JButton f = new JButton(fou);   
+            JButton d = new JButton(dame);  
+            c.setBackground(Color.white);   c.setName("c");
+            t.setBackground(Color.white);   t.setName("t");
+            f.setBackground(Color.white);   f.setName("f");
+            d.setBackground(Color.white);   d.setName("d");
+            
+            JLabel j= new JLabel("Quelle pièce voulez vous choisir ?");
+            
+            c.addActionListener(echecListener);
+            t.addActionListener(echecListener);
+            f.addActionListener(echecListener);
+            d.addActionListener(echecListener);
+            p.add(j);
+            p.add(c);
+            p.add(t);
+            p.add(f);
+            p.add(d);
+            
+            dialog.add(p);
+            dialog.setUndecorated(true);
+            dialog.getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY));
+            // set visibility of dialog
+            dialog.setVisible(true);
+        }
+    }
+    
+    public void Perdu(String couleur) throws InterruptedException{
+        int dialog;
+    
+        System.out.println("Les " + couleur + " ont perdu !");
+        if(couleur.contains("B"))   couleur = "Blancs";
+        else                        couleur = "Noirs";
         
-        dialog.setLocation((int)(screenSize.getWidth()/2-150), (int)(screenSize.getHeight()/2-125));
-        //On le place bien parce que plus possible de le déplacer après.
-        System.out.println(controler.getModel().getCase(x,y));
-        Icon cav = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.CN : ImagePiece.CB);
-        Icon tour = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.TN : ImagePiece.TB);
-        Icon fou = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.FN : ImagePiece.FB);
-        Icon dame = new ImageIcon((controler.getModel().getCase(x,y)=="PN") ? ImagePiece.DN : ImagePiece.DB);
-        JPanel p = new JPanel();
-        JButton c = new JButton(cav);   
-        JButton t = new JButton(tour);  
-        JButton f = new JButton(fou);   
-        JButton d = new JButton(dame);  
-        c.setBackground(Color.white);   c.setName("c");
-        t.setBackground(Color.white);   t.setName("t");
-        f.setBackground(Color.white);   f.setName("f");
-        d.setBackground(Color.white);   d.setName("d");
-        
-        JLabel j= new JLabel("Quelle pièce voulez vous choisir ?");
-        
-        c.addActionListener(echecListener);
-        t.addActionListener(echecListener);
-        f.addActionListener(echecListener);
-        d.addActionListener(echecListener);
-        p.add(j);
-        p.add(c);
-        p.add(t);
-        p.add(f);
-        p.add(d);
-        
-        dialog.add(p);
-        dialog.setUndecorated(true);
-        dialog.getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY));
-        // set visibility of dialog
-        dialog.setVisible(true);
+        dialog = JOptionPane.showConfirmDialog(this, "Les " + couleur + " ont perdu !", "Perdu", JOptionPane.DEFAULT_OPTION);
+        System.out.println(dialog);
+        if (dialog == 0)
+            System.exit(0);
     }
 
     @Override
