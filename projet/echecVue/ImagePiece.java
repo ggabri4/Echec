@@ -24,6 +24,7 @@ public final class ImagePiece {
 	public static Image PN=new ImageIcon ("./img/noir/pion.png").getImage();
 
 	public static Image Indicateur = new ImageIcon ("./img/Indicateur.png").getImage();
+	public static Image M = new ImageIcon ("./img/M.png").getImage();
 
 	public static Image TBM= new ImageIcon ("./img/petite/blanc/tour.png").getImage();
 	public static Image TNM= new ImageIcon ("./img/petite/noir/tour.png").getImage();

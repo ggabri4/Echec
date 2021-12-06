@@ -193,6 +193,8 @@ public class plateau extends JFrame implements Observer{
                             break;
 						default:
                         }
+                        if(nomPiece.contains("M") && nomPiece.contains("N"))
+                            g.drawImage(ImagePiece.M, ((dim.width/9)*j)+(((dim.width/9)-70)/2) , ((dim.height/8)*i)+(((dim.height/8)-70)/2) , this);
 					}
 				}catch(Exception e){
 				}

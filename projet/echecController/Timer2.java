@@ -5,7 +5,7 @@ import echecVue.plateau;
 
 public class Timer2 extends Thread{
     plateau myplateau;
-    private int totaltime = 10;
+    private int totaltime = 300;
     Timer t = new Timer();
     public Timer2(plateau myplateau){
         this.myplateau = myplateau;
