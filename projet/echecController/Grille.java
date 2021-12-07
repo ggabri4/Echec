@@ -285,8 +285,18 @@ public class Grille implements Observable{
 	public void notifyObserver(ArrayList<String> pieces) {
 		Iterator<Observer> it = listObs.iterator();
 		while (it.hasNext()) {
-			((plateau) it.next()).update(null, null);
+			plateau plateau = ((plateau) it.next());
+			plateau.update(null, null);
+			if(pieces!=null && (pieces.contains("RN") || pieces.contains("RN"))){
+				try {
+					plateau.Perdu((pieces.contains("RN"))?"N":"B");
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+				
 		}
+		
 	}
 
 	@Override

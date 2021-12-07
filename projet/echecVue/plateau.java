@@ -112,19 +112,21 @@ public class plateau extends JFrame implements Observer{
         int nbCN = 0;
         int nbFN = 0;
         int nbTN = 0;
+        int nbRN = 0;
 
         int nbPB = 0;
         int nbCB = 0;
         int nbFB = 0;
         int nbTB = 0;
+        int nbRB = 0;
         
         for (String piece : controler.getModel().getPiece()) {
             int val=1;
             if(piece.contains("N")) val=0;
             switch(piece.substring(0, 1)){
                 case "R":
+                    if(piece.contains("RN")) nbRN++; else nbRB++;
 					g.drawImage(((piece.contains("RB")) ? ImagePiece.RBM : ImagePiece.RNM), 2 , ((val==0)?0:dim.height/2)+10, this);//Un seul roi possible, calculs plus simples
-                    Perdu(piece.substring(1, 2));//Donne B ou R
 					break;
                 case "D":
 					g.drawImage(((piece.contains("DB")) ? ImagePiece.DBM : ImagePiece.DNM), 2 , ((val==0)?0:dim.height/2)+40, this);//Une seule dame possible...
@@ -199,7 +201,9 @@ public class plateau extends JFrame implements Observer{
 				}catch(Exception e){
 				}
             }
-        }   
+        } 
+        //if(nbRN!=0 || nbRB!=0)  
+        //    Perdu((nbRN==1)?"N":"B");
     }
     public Dimension getsize(){
         Dimension dime = echecP.getSize();
