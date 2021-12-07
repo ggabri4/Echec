@@ -105,7 +105,11 @@ public class Grille implements Observable{
 				return 3;
 			}
 			else if(grille[x2][y2].contains("M")){
+				if(grille[x2][y2].contains("D"))//Si la piece est une dame
+					if(pieces.contains(grille[x2][y2].substring(0,2)))//et que la liste contient déjà une dame
+						grille[x2][y2] = "P"+grille[x2][y2].substring(1, 2);//une des dames est un pion ayant eu une promotion
 				pieces.add(grille[x2][y2].substring(0,2));
+				System.out.println(pieces);
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
 				resetIndicateur();
