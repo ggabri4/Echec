@@ -287,7 +287,7 @@ public class Grille implements Observable{
 		while (it.hasNext()) {
 			plateau plateau = ((plateau) it.next());
 			plateau.update(null, null);
-			if(pieces!=null && (pieces.contains("RN") || pieces.contains("RN"))){
+			if(pieces!=null && (pieces.contains("RN") || pieces.contains("RB"))){
 				try {
 					plateau.Perdu((pieces.contains("RN"))?"N":"B");
 				} catch (InterruptedException e) {
