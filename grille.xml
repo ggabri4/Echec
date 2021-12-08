@@ -6,9 +6,6 @@
     <void index="0">
      <string>I</string>
     </void>
-    <void index="6">
-     <null/>
-    </void>
     <void index="9">
      <string>I</string>
     </void>
@@ -26,49 +23,6 @@
     </void>
    </void>
    <void index="1">
-    <void index="5">
-     <null/>
-    </void>
-    <void index="9">
-     <string>I</string>
-    </void>
-   </void>
-   <void index="2">
-    <void index="0">
-     <string>I</string>
-    </void>
-   </void>
-   <void index="3">
-    <void index="0">
-     <string>I</string>
-    </void>
-   </void>
-   <void index="4">
-    <void index="1">
-     <string>FB</string>
-    </void>
-    <void index="5">
-     <string>PB</string>
-    </void>
-   </void>
-   <void index="5">
-    <void index="2">
-     <null/>
-    </void>
-    <void index="3">
-     <string>DB</string>
-    </void>
-    <void index="5">
-     <null/>
-    </void>
-    <void index="6">
-     <null/>
-    </void>
-    <void index="9">
-     <string>I</string>
-    </void>
-   </void>
-   <void index="6">
     <void index="3">
      <null/>
     </void>
@@ -78,14 +32,67 @@
     <void index="5">
      <null/>
     </void>
-    <void index="6">
-     <string>DN</string>
+    <void index="9">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="2">
+    <void index="4">
+     <string>PN</string>
+    </void>
+   </void>
+   <void index="4">
+    <void index="0">
+     <string>I</string>
+    </void>
+    <void index="1">
+     <string>PB</string>
+    </void>
+    <void index="3">
+     <string>PB</string>
+    </void>
+    <void index="5">
+     <string>PN</string>
+    </void>
+   </void>
+   <void index="5">
+    <void index="1">
+     <null/>
+    </void>
+    <void index="3">
+     <null/>
+    </void>
+    <void index="5">
+     <null/>
+    </void>
+    <void index="9">
+     <string>I</string>
+    </void>
+   </void>
+   <void index="6">
+    <void index="0">
+     <string>I</string>
+    </void>
+    <void index="9">
+     <string>I</string>
     </void>
     <void index="10">
      <string>I</string>
     </void>
+    <void index="11">
+     <string>I</string>
+    </void>
+    <void index="12">
+     <string>I</string>
+    </void>
+    <void index="13">
+     <string>I</string>
+    </void>
    </void>
    <void index="7">
+    <void index="1">
+     <string>I</string>
+    </void>
     <void index="2">
      <string>I</string>
     </void>
@@ -102,6 +109,9 @@
      <string>I</string>
     </void>
     <void index="7">
+     <string>I</string>
+    </void>
+    <void index="8">
      <string>I</string>
     </void>
    </void>
@@ -112,7 +122,7 @@
     <void index="2">
      <string>I</string>
     </void>
-    <void index="5">
+    <void index="3">
      <string>I</string>
     </void>
     <void index="6">
@@ -123,13 +133,7 @@
     </void>
    </void>
    <void index="9">
-    <void index="0">
-     <string>I</string>
-    </void>
     <void index="1">
-     <string>I</string>
-    </void>
-    <void index="6">
      <string>I</string>
     </void>
     <void index="7">
@@ -140,10 +144,7 @@
     </void>
    </void>
    <void index="10">
-    <void index="0">
-     <string>I</string>
-    </void>
-    <void index="7">
+    <void index="1">
      <string>I</string>
     </void>
     <void index="8">
@@ -154,7 +155,7 @@
     </void>
    </void>
    <void index="11">
-    <void index="8">
+    <void index="1">
      <string>I</string>
     </void>
     <void index="9">
@@ -165,7 +166,7 @@
     </void>
    </void>
    <void index="12">
-    <void index="9">
+    <void index="1">
      <string>I</string>
     </void>
     <void index="10">
@@ -175,25 +176,18 @@
      <string>I</string>
     </void>
    </void>
+   <void index="13">
+    <void index="1">
+     <string>I</string>
+    </void>
+   </void>
   </void>
   <void property="piece">
    <void method="add">
-    <string>PB</string>
+    <string>PN</string>
    </void>
    <void method="add">
     <string>PB</string>
-   </void>
-   <void method="add">
-    <string>FN</string>
-   </void>
-   <void method="add">
-    <string>PB</string>
-   </void>
-   <void method="add">
-    <string>FB</string>
-   </void>
-   <void method="add">
-    <string>RB</string>
    </void>
   </void>
  </object>

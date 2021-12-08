@@ -13,7 +13,7 @@ public class roi extends piece {
         int i=1;
         for(i=-1;i<2;i++)
             for(int j=-1;j<2;j++)
-                if(x+i>=0&&y+j>=0 &&(grille[x+i][y+j]==null)){//vers bas droite
+                if(x+i>=0&&y+j>=0 &&(grille[x+i][y+j]==null)){
                     grille[x+i][y+j] = "I";
                     if(List!=null)  List.add((x+i)+";"+(y+j));
                     retour=1;
@@ -30,7 +30,7 @@ public class roi extends piece {
         int i=1;
         for(i=-1;i<2;i++)
             for(int j=-1;j<2;j++)
-                if(x+i>=0&&y+j>=0 &&grille[x+i][y+j]!=null&&(grille[x+i][y+j]!="I")){//vers bas droite
+                if(x+i>=0&&y+j>=0 &&grille[x+i][y+j]!=null&&!grille[x+i][y+j].contains("I")){
                     grille[x+i][y+j] = grille[x+i][y+j].substring(0, 2)+"M";
                     if(List!=null)  List.add((x+i)+";"+(y+j));
                     retour=1;

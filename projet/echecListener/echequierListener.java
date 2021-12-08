@@ -37,7 +37,7 @@ public class echequierListener extends MouseAdapter implements ActionListener{
         if(FirstClick){
             y1 = MouseX;
             x1 = MouseY;
-            if(controller.PossibleMoves(x1, y1) == 1)
+            if(controller.getModel().getCase(x1, y1)!=null && !controller.getModel().getCase(x1, y1).contains("N") && controller.PossibleMoves(x1, y1) == 1)
                 FirstClick=false;
         }
         else{
@@ -78,8 +78,9 @@ public class echequierListener extends MouseAdapter implements ActionListener{
 			for (int j = 1; j < 9; j++){
                 pion = controller.getModel().getCase(i, j);
                 if(pion != null && pion.contains("N")){
-                    pion = pion.substring(0, 1);
+                    pion = pion.substring(0, 2);
                     compt = controller.botmoves(i, j, pion,coups,compt);
+                    controller.getModel().resetIndicateur();//
                 }
             }
         SortArrayOnCol(coups, 2);
@@ -95,8 +96,22 @@ public class echequierListener extends MouseAdapter implements ActionListener{
                 int x2 =Integer.parseInt(coord[0]);
                 int y2 =Integer.parseInt(coord[1]);
                 
-                System.out.println("depart "+controller.getModel().getCase(x1, y1)+ "  arrivee "+controller.getModel().getCase(x2, y2));
+                System.out.println("depart "+controller.getModel().getCase(x1, y1)+ "  arrivee "+(7-x2)+(char)(y2+64)+ "  val "+element[2]);
+            }
+        }
+        System.out.println("\n");
+        for(String element[] : coups){
+            if(element[0]!=null && bool==false){
+                String coord[] = new String[2];
+                coord = element[0].split(";");
+                int x1 =Integer.parseInt(coord[0]);
+                int y1 =Integer.parseInt(coord[1]);
+                coord = element[1].split(";");
+                int x2 =Integer.parseInt(coord[0]);
+                int y2 =Integer.parseInt(coord[1]);
                 
+                //System.out.println("depart "+controller.getModel().getCase(x1, y1)+ "  arrivee "+controller.getModel().getCase(x2, y2));
+                controller.PossibleMoves(x1, y1);
                 test = controller.MovePiece(x1,y1,x2,y2);
                 if(test == 1){
                     bool=true;

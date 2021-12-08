@@ -109,7 +109,7 @@ public class Grille implements Observable{
 					if(pieces.contains(grille[x2][y2].substring(0,2)))//et que la liste contient déjà une dame
 						grille[x2][y2] = "P"+grille[x2][y2].substring(1, 2);//une des dames est un pion ayant eu une promotion
 				pieces.add(grille[x2][y2].substring(0,2));
-				System.out.println(pieces);
+				//System.out.println(pieces);
 				grille[x2][y2]=grille[x1][y1];
 				grille[x1][y1]=null;
 				resetIndicateur();
@@ -143,8 +143,7 @@ public class Grille implements Observable{
 		try{
 			if(grille[x][y] == null || grille[x][y] == "I")
 				return 0;
-			if(grille[x][y].substring(1, 2).contains("N"))
-				return 0;
+	
 			int	val = (grille[x][y].substring(1, 2).contains("N"))?1:-1;
 
 			switch(grille[x][y].substring(0, 1)){
@@ -181,7 +180,131 @@ public class Grille implements Observable{
 	public int botmoves(int x, int y, String pion, String coups[][],int compt){
 		ArrayList<String> listeCoups = new ArrayList<String>();
 
-		switch(pion){
+		listeCoups = moves(x, y);
+		//notifyObserver(null);
+
+		for(String element : listeCoups){
+			String coord[] = new String[2];
+			coord = element.split(";");
+			int i =Integer.parseInt(coord[0]);
+			int j =Integer.parseInt(coord[1]);
+
+			if(grille[i][j]!=null && !grille[i][j].contains(pion.substring(1, 2)) && i<7 && j <8){
+				
+				String temp = grille[i][j];
+				int val=0;
+				coups[compt][0] = x+";"+y;
+				coups[compt][1] = element;
+				
+				//calcul du gain pour le bot
+				if(pion.contains("N"))
+					val = prisepion(x,y,element);
+				
+				//On simule le prochain coup
+				grille[i][j] =  grille[x][y];
+				grille[x][y]=null;
+
+				resetIndicateur();
+				//on regarde si le roi est en danger
+				if(roidanger())
+					val	-=700;//Seul coup avec plus points = prendre le roi adverse
+				
+				resetIndicateur();
+				//On regarde si la piece peut être manger au prochain tour
+				val += danger(i,j);
+				
+				coups[compt][2] = String.valueOf(val);
+				//On replace correctement
+				grille[x][y] =  grille[i][j];
+				grille[i][j] = temp;
+
+				//System.out.println(" depart"+x+y+" "+grille[x][y]+ "  arrivee"+i+j+" "+grille[i][j] + "  val "+coups[compt][2]);
+				compt++;
+			}
+		}
+
+		return compt;
+	}
+	
+	public int prisepion(int xd, int yd,String coup){
+		int valeur=0;
+		String coord[] = new String[2];
+		coord = coup.split(";");
+		int x =Integer.parseInt(coord[0]);
+		int y =Integer.parseInt(coord[1]);
+		if(y==1 || y==8)	valeur+=1;
+		if(y==2 || y==7)	valeur+=2;
+		if(y==3 || y==6)	valeur+=3;
+		if(y==4 || y==5)	valeur+=4;
+		if(grille[xd][yd].contains("R"))
+			valeur-=50;//Bouger le roi en dernier
+		if(grille[x][y]==null){}
+		else if(grille[x][y].contains("R"))
+			valeur+=999;
+		else if(grille[x][y].contains("D"))
+			valeur+=90;
+		else if(grille[x][y].contains("T"))
+			valeur+=50;
+		else if(grille[x][y].contains("F"))
+			valeur+=30;
+		else if(grille[x][y].contains("C"))
+			valeur+=30;
+		else if(grille[x][y].contains("P"))
+			valeur+=10;		
+
+		return valeur;
+	}
+	public boolean roidanger(){
+		//Premier façon de faire
+		int Xroi=0,Yroi=0;
+		for (int i = 0; i < 7; i++)
+			for (int j = 1; j < 9; j++){
+				if(grille[i][j] != null && grille[i][j].contains("RN")){
+					Xroi=i;Yroi=j;
+					//System.out.println(i+ " "+ j+" "+grille[Xroi][Yroi]);
+				}
+				if(grille[i][j] != null && grille[i][j].contains("B"))
+					moves(i, j);//Ajoute les M sur les pieces mangeables
+			}
+		//System.out.println(Xroi+ " "+ Yroi+" "+grille[Xroi][Yroi]);
+		if(grille[Xroi][Yroi].contains("M"))	
+			return true;
+		
+		return false;
+	}
+	public int danger(int x, int y){//Cette fonction ne fonctionne pas toujours
+		int valeur=0;
+
+		for (int i = 0; i < 7; i++)
+			for (int j = 1; j < 9; j++)
+				if(grille[i][j] != null && grille[i][j].contains("B")){
+					moves(i, j);//Ajoute les M sur les pieces mangeables
+					//System.out.println(grille[i][j]);
+				}
+					
+					
+		if(grille[x][y].contains("M")){
+			//System.out.println(grille[x][y]);
+			if(grille[x][y].contains("R"))
+				valeur-=999;
+			else if(grille[x][y].contains("D"))
+				valeur-=75;
+			else if(grille[x][y].contains("T"))
+				valeur-=25;
+			else if(grille[x][y].contains("F"))
+				valeur-=15;
+			else if(grille[x][y].contains("C"))
+				valeur-=15;
+			else if(grille[x][y].contains("P"))
+				valeur-=5;	
+		}
+		return valeur;
+
+	}
+	public ArrayList<String> moves(int x, int y){
+		ArrayList<String> listeCoups = new ArrayList<String>();
+		String pion = grille[x][y];
+		switch(pion.substring(0, 1)){
 			case "P":
 				pionB.pionmoves(grille, x, y, 1, listeCoups);	
 				break;
@@ -201,53 +324,8 @@ public class Grille implements Observable{
 				roiB.pionmoves(grille, x, y, listeCoups);
 			break;
 		}
-		notifyObserver(null);
-		
-		for(String element : listeCoups){
-			String coord[] = new String[2];
-			coord = element.split(";");
-			int i =Integer.parseInt(coord[0]);
-			int j =Integer.parseInt(coord[1]);
-
-			if(grille[i][j]!=null && !grille[i][j].contains("N") && i<7 && j <8){
-				//System.out.println(" depart "+i+";"+j+ "  arrivee "+element);
-				coups[compt][0] = x+";"+y;
-				coups[compt][1] = element;
-				coups[compt][2] = String.valueOf(valeurcoup(x,y,element));
-				compt++;
-			}
-		}
-		return compt;
+		return listeCoups;
 	}
-
-	public int valeurcoup(int xd, int yd,String coup){
-		int valeur=0;
-		String coord[] = new String[2];
-		coord = coup.split(";");
-		int x =Integer.parseInt(coord[0]);
-		int y =Integer.parseInt(coord[1]);
-		if(y==1 || y==8)	valeur+=1;
-		if(y==2 || y==7)	valeur+=2;
-		if(y==3 || y==6)	valeur+=3;
-		if(y==4 || y==5)	valeur+=4;
-		if(grille[xd][yd].contains("R"))
-			valeur-=500;
-		if(grille[x][y]==null){}
-		else if(grille[x][y].contains("R"))
-			valeur+=999;
-		else if(grille[x][y].contains("D"))
-			valeur+=90;
-		else if(grille[x][y].contains("T"))
-			valeur+=50;
-		else if(grille[x][y].contains("F"))
-			valeur+=30;
-		else if(grille[x][y].contains("C"))
-			valeur+=30;
-		else if(grille[x][y].contains("P"))
-			valeur+=10;
-		return valeur;
-	}
-
 	public void setPiece(ArrayList<String> pieces){
 		this.pieces = pieces;
 	}
